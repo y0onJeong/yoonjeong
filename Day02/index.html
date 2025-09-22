@@ -6,14 +6,31 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>counter : 0</h1>
+    <h1 id="counter-output">counter : 0</h1>
     <button id="btn-inc" > Inc </button>
+    <button id="btn-dec" > dec </button>
 
     <script>
-        var btnTest = document.getElementById("btn-inc")
+        var btnTest = document.getElementById("counter-output")
+        var btnInc = document.getElementById("btn-inc")
+        var counter = 0 //변수선언
 
         btnTest.addEventListener('click', ()=> {
-            console.log('click test')
+            console.log('click test' + counter)
+            counter = counter + 1
+            counterOutput.innerText = "counter : " + counter
+
+        })
+
+         var btnTest = document.getElementById("counter-output")
+        var btnInc = document.getElementById("btn-dec")
+        var counter = 0 //변수선언
+
+        btnTest.addEventListener('click', ()=> {
+            console.log('click test' - counter)
+            counter = counter - 1
+            counterOutput.innerText = "counter : " - counter
+
         })
 
     </script>
