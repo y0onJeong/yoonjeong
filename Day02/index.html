@@ -18,7 +18,7 @@
         btnTest.addEventListener('click', ()=> {
             console.log('click test' + counter)
             counter = counter + 1
-            counterOutput.innerText = "counter : " + counter
+            btnTest.innerText = "counter : " + counter;
 
         })
 
@@ -27,9 +27,9 @@
         var counter = 0 //변수선언
 
         btnTest.addEventListener('click', ()=> {
-            console.log('click test' - counter)
+            console.log('click test' + counter)
             counter = counter - 1
-            counterOutput.innerText = "counter : " - counter
+            btnTest.innerText = "counter : " + counter;
 
         })
 
