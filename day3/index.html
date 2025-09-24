@@ -12,5 +12,12 @@
         <button id="btn-ok"> ok </button>
     </div>
     <p id="output"> 선택한 번호 :  </p>
+
+    <script>
+        document.getElementById('btn-ok').addEventListener('click', function() {
+            const num = document.getElementById('inp-num').value;
+            document.getElementById('output').textContent = '선택한 번호 : ' + num;
+        });
+    </script>
 </body>
 </html>
