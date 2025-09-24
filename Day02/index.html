@@ -13,23 +13,20 @@
     <script>
         var btnTest = document.getElementById("counter-output")
         var btnInc = document.getElementById("btn-inc")
+        var btnDec = document.getElementById("btn-dec")
         var counter = 0 //변수선언
 
-        btnTest.addEventListener('click', ()=> {
+        btnInc.addEventListener('click', ()=> {
             console.log('click test' + counter)
             counter = counter + 1
-            btnTest.innerText = "counter : " + counter;
+            btnTest.innerText = "counter : " + counter
 
         })
 
-         var btnTest = document.getElementById("counter-output")
-        var btnInc = document.getElementById("btn-dec")
-        var counter = 0 //변수선언 //
-
-        btnTest.addEventListener('click', ()=> {
-            console.log('click test' + counter)
+        btnDec.addEventListener('click', ()=> {
+            console.log('dec click test' + counter)
             counter = counter - 1
-            btnTest.innerText = "counter : " + counter;
+            btnTest.innerText = "counter : " + counter
 
         })
 
