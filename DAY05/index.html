@@ -3,9 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Check box</title>
 </head>
 <body>
-    
+    <h1> check box</h1>
+    <p> 약관에 동의 합니까? </p>
+    <input type="checkbox" id="chk-agree" /> <!-- input type="checkbox" checked를 하면 체크가 되어 있는 상태로 표시 -->
+    <button id="btn-submit"> 제출 </button>
+    <p id="txt-result"></p>
+    <script>
+        var chkAgree = document.getElementById("chk-agree")
+        var btnSubmit = document.getElementById("btn-submit")
+        var txtResult = document.getElementById("txt-result")
+        btnSubmit.addEventListener('click', ()=> {
+            console.log(chkAgree.checked)
+            if(chkAgree.checked == true) {
+                txtResult.innerText = "동의함"
+            }
+            else {
+                txtResult.innerText = "동의 못 함"
+            }
+        })
+
+    </script>
 </body>
 </html>
