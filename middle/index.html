@@ -6,6 +6,18 @@
     <title>카운터 중간고사 </title>
 </head>
 <body>
+    <h1>
+        숫자입력
+    </h1>
+    <div>
+        <input id="inp-num" type="number" value="0" />
+    </div>
+    <script>
+        document.getElementById('btn-ok').addEventListener('click', function() {
+            const num = document.getElementById('inp-num').value;
+            document.getElementById('output').textContent = '선택한 번호 : ' + num;
+        });
+    </script>
     <button>
         증가
     </button>
