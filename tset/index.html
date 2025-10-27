@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="inp-text" placeholder="여기에 입력하세요">
+    <button id="btn-show">확인</button>
+    <div id="display"></div>
+
+    <script>
+        var inpText = document.getElementById("inp-text");
+        var btnShow = document.getElementById("btn-show");
+        var display = document.getElementById("display");
+
+        btnShow.addEventListener("click", function() {
+            var inputValue = inpText.value;   // 입력값 가져오기
+            display.textContent = inputValue; // 화면에 표시
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>카운터 중간고사 </title>
+</head>
+<body>
+    <h1> 숫자입력 </h1>
+    <div>        
+        <input id="inp-num" type="number" value="0" />
+        <button id="btn-ok"> ok </button>
+    </div>
+    <p id="output"> 선택한 번호 :  </p>
+    
+
+    <script>
+        document.getElementById('btn-ok').addEventListener('click', function() {
+            const num = document.getElementById('inp-num').value;
+            document.getElementById('output').textContent = '선택한 번호 : ' + num;
+        });
+    </script>
+</body>
+</html>
