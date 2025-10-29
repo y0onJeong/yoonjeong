@@ -4,8 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .body{
+            margin: 0px;
+            background-color: rgb(145, 58, 58);
+        }
+        .box{
+            width: 250px;
+            height: 120px;
+            background-color: rgb(84, 84, 133);
+            color: white;
+            margin: 8px;
+        }
+        .type-1{
+            overflow-wrap: normal;
+            word-break: break-all;
+        }
+        .type-2{
+            overflow-wrap: break-word;
+            overflow-x: hidden;
+        }
+        .type-3{
+            overflow-wrap: anywhere;
+        }
+    </style>
 </head>
 <body>
-    
+    <div class="box type-1"> 
+        Lorem ipsum dolor sit amet. consectetur adipiscing elit.
+    </div>
+    <div class="box type-2"> 
+        Lorem ipsum dolor sit amet. consectetur adipiscing elit.
+    </div>
+    <div class="box type-3"> 
+        Lorem ipsum dolor sit amet. consectetur adipiscing elit.
+    </div>
 </body>
 </html>
