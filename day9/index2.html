@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        .body{
+        body{
             margin: 0px;
             background-color: rgb(145, 58, 58);
         }
@@ -22,22 +22,30 @@
         }
         .type-2{
             overflow-wrap: break-word;
-            overflow-x: hidden;
+            word-break: normal;
         }
         .type-3{
             overflow-wrap: anywhere;
+        }
+        .type-4{
+            overflow: normal;
+            word-break: normal;
+            overflow: hidden;
         }
     </style>
 </head>
 <body>
     <div class="box type-1"> 
-        Lorem ipsum dolor sit amet. consectetur adipiscing elit.
+        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
     </div>
     <div class="box type-2"> 
         Lorem ipsum dolor sit amet. consectetur adipiscing elit.
     </div>
     <div class="box type-3"> 
         Lorem ipsum dolor sit amet. consectetur adipiscing elit.
+    </div>
+    <div class="box type-4">
+        aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk
     </div>
 </body>
 </html>
