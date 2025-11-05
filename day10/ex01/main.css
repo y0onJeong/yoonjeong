@@ -3,7 +3,12 @@ body{
     padding: 0px;
     background-color: blue;
     color: white;
-}.box-1{
+}
+.container{
+    display: flex;
+    flex-direction: row;
+}
+.box-1{
     display: flex;
     width: 128px;
     height: 64px;
@@ -13,3 +18,4 @@ body{
     align-items: flex-start;
     border: 1px solid white;
 }
+

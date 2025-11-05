@@ -10,8 +10,27 @@
 </head>
 <body>
     <h1> Hello </h1>
-    <div class="box-1"> 박스1 </div>
-    <div class="box-1" style="justify-content: center;"> 박스2 </div>
-    <div class="box-1" style="justify-content: flex-end;">박스3</div>
+    <div class="container">
+        <div class="box-1"> 박스1 </div>
+        <div class="box-1" style="justify-content: center;"> 박스2 </div>
+        <div class="box-1" style="justify-content: flex-end;">박스3</div>
+    </div>
+    <div class="container">
+        <div class="box-1" style="align-items: center;">박스4</div>
+        <div class="box-1" style="align-items: center; justify-content: center; ">박스5</div>
+        <div class="box-1" style="align-items: center; justify-content: end; ">박스6</div>
+    </div>
+        <div class="container">
+        <div class="box-1" style="align-items: end;" >박스7</div>
+        <div class="box-1" style="align-items: end; justify-content: center;">박스8</div>
+        <div class="box-1" style="align-items: end; justify-content: end;">박스9</div>
+    </div>
+
+
+    <script type="module">
+        import main from "./index.js"
+        main();
+    </script>
+
 </body>
 </html>
