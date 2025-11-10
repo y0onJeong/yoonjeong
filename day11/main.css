@@ -2,7 +2,7 @@ body{
     display: flex;
     margin: 10px;
     padding: 0px;
-    background-color: rgb(243, 163, 239);
+    background-color: blue;
     color: white;
     font-family: 'PartialSans';
     align-items: center;
