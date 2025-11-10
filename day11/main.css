@@ -4,7 +4,7 @@ body{
     padding: 0px;
     background-color: blue;
     color: white;
-    font-family: 'PartialSans';
+    font-family: 'DosMyungjo';
     align-items: center;
     flex-direction: column;
     height: 100vh;
@@ -12,8 +12,8 @@ body{
 }
 
 @font-face {
-    font-family: 'PartialSans';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2307-1@1.1/PartialSansKR-Regular.woff2') format('woff2');
+    font-family: 'DosMyungjo';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/DOSMyungjo.woff') format('woff');
     font-weight: normal;
     font-display: swap;
 }
@@ -24,4 +24,8 @@ body{
 
 .mid-text{
     font-size: 32px;
+}
+
+.small-text{
+    font-size: 18px;
 }
