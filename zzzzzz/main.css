@@ -1,0 +1,152 @@
+/* 🎯 1. 기본 설정 및 레이아웃 */
+body {
+    font-family: 'Noto Sans KR', sans-serif; 
+    margin: 0;
+    padding-top: 60px; 
+    background-color: #ffffff;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* 🎯 2. 고정 헤더 스타일 */
+#main-header {
+    background-color: white;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.08);
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+#main-header h1 {
+    font-size: 1.5em;
+    color: #007bff; /* 포인트 색상 */
+    margin: 0;
+}
+
+/* 🎯 3. 내비게이션 링크 스타일 */
+.nav-link {
+    text-decoration: none;
+    color: #555;
+    padding: 8px 15px;
+    margin-left: 5px;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.nav-link.active, .nav-link:hover {
+    color: #007bff;
+    border-bottom: 2px solid #007bff; /* 활성/호버 시 밑줄 효과 */
+}
+
+/* 🎯 4. 메인 비주얼 (Hero Section) 스타일 */
+#hero-section {
+    height: 500px; 
+    background-color: #f7f7f7; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 50px 0;
+}
+
+.hero-text-box h2 {
+    font-size: 3em;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.hero-text-box p {
+    font-size: 1.1em;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* 🎯 5. 액션 버튼 스타일 */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.main-action-btn, .sub-action-btn {
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.main-action-btn {
+    background-color: #007bff; 
+    color: white;
+    border: 2px solid #007bff;
+}
+
+.main-action-btn:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.sub-action-btn {
+    background-color: white;
+    color: #007bff;
+    border: 2px solid #007bff;
+}
+
+.sub-action-btn:hover {
+    background-color: #f0f0f0;
+}
+
+/* 🎯 6. 일반 컨텐츠 섹션 스타일 */
+#content-section {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+}
+
+#content-section h3 {
+    font-size: 2em;
+    color: #007bff;
+    margin-bottom: 40px;
+}
+
+/* 핵심 가치 그리드 레이아웃 */
+.value-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.value-item {
+    background-color: #f9f9f9;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.value-item h4 {
+    color: #333;
+    font-size: 1.5em;
+    margin-top: 0;
+}
+
+/* 🎯 7. 푸터 스타일 */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}

@@ -1,0 +1,52 @@
+body{
+    display: flex;
+    margin: 0px;
+    padding: 0px;
+    background-color: blue;
+    color: white;
+    font-family: 'DosMyungjo';
+    flex-direction: column;
+    height: 100vh;
+}
+
+@font-face {
+    font-family: 'DosMyungjo';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_eight@1.0/DOSMyungjo.woff') format('woff');
+    font-weight: normal;
+    font-display: swap;
+}
+
+header {
+    padding: 16px;
+    /*background-color: yellow;
+    color: black;*/
+    display: flex;
+    justify-content: flex-end;
+}
+main{
+    display: flex;
+    flex: 1;
+    color: white;
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+footer{
+    padding: 16px;
+    /*background-color: black;
+    color: white;*/
+    display: flex;
+}
+.title{
+    font-size: 64px;
+}
+.menu-item{
+    font-size: 32px;
+}
+
+.select{
+    background-color: black;
+    color: white;
+}
