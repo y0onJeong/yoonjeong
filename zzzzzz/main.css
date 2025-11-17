@@ -1,40 +1,47 @@
+/* style.css */
+
 /* 🎯 1. 기본 설정 및 레이아웃 */
 body {
     font-family: 'Noto Sans KR', sans-serif; 
     margin: 0;
-    padding-top: 60px; 
+    padding-top: 60px; /* 고정 헤더 높이만큼 여백 확보 */
     background-color: #ffffff;
     color: #333;
     line-height: 1.6;
 }
 
-/* 🎯 2. 고정 헤더 스타일 */
+/* 🎯 2. 고정 헤더 및 스크롤 애니메이션 */
 #main-header {
-    background-color: white;
-    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.08);
+    background-color: transparent; /* 기본 투명 */
+    box-shadow: none; /* 기본 그림자 없음 */
     position: fixed; 
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.scrolled {
+    background-color: white !important; /* 스크롤 시 흰색 */
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.08) !important;
 }
 
 .header-container {
     max-width: 1200px;
     margin: auto;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
     padding: 10px 20px;
 }
-
 #main-header h1 {
-    font-size: 1.5em;
-    color: #007bff; /* 포인트 색상 */
-    margin: 0;
+    font-size: 2.5em;
+    color: #007bff;
+    margin: 0 40px 0 0;
 }
 
-/* 🎯 3. 내비게이션 링크 스타일 */
 .nav-link {
     text-decoration: none;
     color: #555;
@@ -42,14 +49,15 @@ body {
     margin-left: 5px;
     font-weight: 500;
     transition: color 0.2s;
+    justify-content: center;
 }
 
 .nav-link.active, .nav-link:hover {
     color: #007bff;
-    border-bottom: 2px solid #007bff; /* 활성/호버 시 밑줄 효과 */
+    border-bottom: 2px solid #007bff;
 }
 
-/* 🎯 4. 메인 비주얼 (Hero Section) 스타일 */
+/* 🎯 3. 메인 비주얼 (Hero Section) 스타일 */
 #hero-section {
     height: 500px; 
     background-color: #f7f7f7; 
@@ -66,20 +74,18 @@ body {
     color: #333;
     margin-bottom: 10px;
 }
-
 .hero-text-box p {
     font-size: 1.1em;
     color: #666;
     margin-bottom: 30px;
 }
 
-/* 🎯 5. 액션 버튼 스타일 */
+/* 액션 버튼 스타일 */
 .action-buttons {
     display: flex;
     justify-content: center;
     gap: 15px;
 }
-
 .main-action-btn, .sub-action-btn {
     padding: 12px 25px;
     text-decoration: none;
@@ -87,63 +93,77 @@ body {
     font-weight: bold;
     transition: background-color 0.2s, color 0.2s;
 }
-
 .main-action-btn {
     background-color: #007bff; 
     color: white;
     border: 2px solid #007bff;
 }
-
-.main-action-btn:hover {
-    background-color: #0056b3;
-    border-color: #0056b3;
-}
-
 .sub-action-btn {
     background-color: white;
     color: #007bff;
     border: 2px solid #007bff;
 }
 
-.sub-action-btn:hover {
-    background-color: #f0f0f0;
-}
-
-/* 🎯 6. 일반 컨텐츠 섹션 스타일 */
-#content-section {
+/* 🎯 4. 상품 목록 컨테이너 및 제목 스타일 */
+#product-list-container {
     max-width: 1200px;
     margin: 50px auto;
-    padding: 20px;
+    padding: 0 20px;
     text-align: center;
 }
-
-#content-section h3 {
+.section-title {
     font-size: 2em;
-    color: #007bff;
-    margin-bottom: 40px;
-}
-
-/* 핵심 가치 그리드 레이아웃 */
-.value-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-}
-
-.value-item {
-    background-color: #f9f9f9;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-}
-
-.value-item h4 {
+    font-weight: 600;
     color: #333;
-    font-size: 1.5em;
-    margin-top: 0;
+    margin-bottom: 30px;
 }
 
-/* 🎯 7. 푸터 스타일 */
+/* 🎯 5. 상품 목록 그리드 및 카드 스타일 */
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 20px;
+}
+
+.product-card {
+    background-color: white;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s, transform 0.3s;
+    text-align: left;
+    cursor: pointer;
+}
+
+.product-card:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+}
+
+.product-card img {
+    width: 100%;
+    height: 300px; 
+    object-fit: cover;
+}
+
+.card-info {
+    padding: 15px;
+}
+
+.card-info .name {
+    font-size: 1em;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.card-info .price {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #007bff; 
+}
+
+/* 🎯 6. 푸터 스타일 */
 footer {
     background-color: #333;
     color: white;
