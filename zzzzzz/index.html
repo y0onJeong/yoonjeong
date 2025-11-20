@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>👕 힙한 스타일, HIT-IT FASHION</title>
+    <title>👕, .ZIP </title>
     <link rel="stylesheet" href="main.css">
 </head>
 <body>
     <header id="main-header">
         <div class="header-container">
-            <h1>HIT-IT FASHION</h1>
+            <h1>.ZIP</h1>
             <nav>
                 <a href="#" class="nav-link active" data-category="all">BEST</a>
                 <a href="#" class="nav-link" data-category="outer">아우터</a>
@@ -17,13 +17,32 @@
                 <a href="#" class="nav-link" data-category="bottom">하의</a>
                 <a href="#" class="nav-link">ACC</a>
             </nav>
+
+            <button id="cart-button" aria-label="장바구니 보기">
+                🛒 (<span id="cart-count">0</span>)
+            </button>
         </div>
     </header>
+    
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" aria-label="닫기">&times;</span>
+            <h2>🛍️ 장바구니</h2>
+            
+            <div id="cart-items">
+                </div>
+            
+            <div class="cart-summary">
+                <p>총 상품 금액: <span id="cart-total">0</span>원</p>
+                <button id="checkout-btn">결제하기</button>
+            </div>
+        </div>
+    </div>
 
     <main id="main-content">
         <section id="hero-section">
             <div class="hero-text-box">
-                <h2>올겨울 트렌드,<br>지금 바로 HIT-IT에서 만나보세요</h2>
+                <h2>올겨울 트렌드,<br>지금 바로 .ZIP에서 만나보세요</h2>
                 <p>가장 힙하고 스타일리시한 최신 컬렉션을 빠르게 업데이트합니다.</p>
                 <div class="action-buttons">
                     <a href="#product-list-container" class="main-action-btn">신상 컬렉션 보기</a>
@@ -34,14 +53,13 @@
 
         <section id="product-list-container">
             <h3 class="section-title">✨ MD's PICK ITEMS</h3>
-            <div id="product-list" class="grid-container">
-                </div>
+            <div id="product-list" class="grid-container"></div>
         </section>
         
     </main>
 
     <footer>
-        <p>&copy; 2025 HIT-IT FASHION. All rights reserved.</p>
+        <p>&copy; 2025 .ZIP . All rights reserved.</p>
     </footer>
 
     <script src="index.js"></script>
