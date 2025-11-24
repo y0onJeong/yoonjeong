@@ -11,19 +11,31 @@
 
 <body>
     <header>version 1.0</header>
-    <main>
+    <main id="main-menu">
     <div class="title">
         Dungeon & Drafons
     </div>
     <div class="menu-item select" data-actio="start">
         New
     </div>
-    <div class="menu-item select" data-actio="Load">
+    <div class="menu-item" data-actio="Load">
         Load
     </div>
-    <div class="menu-item select" data-actio="option">
+    <div class="menu-item" data-actio="option">
         Option
     </div>
+    <div class="menu-item" data-actio="credit">
+        credit
+    </div>
+
+    </main>
+    <main id="credit-screen" class="hide">
+    <div class="credit-title">Credits</div>
+    <div class="credit-item">Game Design: gbox3d</div>
+    <div class="credit-item">programming: gbox3d</div>
+    <div class="credit-item">Art: </div>
+    <div class="back-button" data-action="back">Back to Main Menu</div>
+
     </main>
     <footer>@yo0njeong</footer>
 
