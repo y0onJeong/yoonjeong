@@ -1,5 +1,5 @@
 export default async function main() {
-    console.log("start app")
+    console.log('start app')
     let currentIndex = 0;
     const menuitems = document.querySelectorAll(".menu-item");
 
@@ -26,10 +26,10 @@ export default async function main() {
         else if(e.key == "Enter"){
             console.log(menuitems[currentIndex])
         }
-
-        console.log[currentIndex].classList.add('select')
-        menuitems[currentIndex].classList.add("select")
         
     })
+    console.log[currentIndex].classList.add('select')
+    menuitems[currentIndex].classList.add("select")
 }
+
 
