@@ -1,12 +1,13 @@
-body{
+body {
     display: flex;
+    background-color: blue;
     margin: 0px;
     padding: 0px;
-    background-color: blue;
     color: white;
-    font-family: 'DosMyungjo';
+    font-family: 'DosMyungjo';    
     flex-direction: column;
     height: 100vh;
+
 }
 
 @font-face {
@@ -17,40 +18,41 @@ body{
 }
 
 header {
-    padding: 16px;
-    /*background-color: yellow;
-    color: black;*/
     display: flex;
+    padding: 16px;
+    /* background-color: yellow; */
+    /* color: black; */
     justify-content: flex-end;
 }
-main{
-    display: flex;
-    flex: 1;
-    color: white;
 
+footer {
+    display: flex;
+    padding: 16px;
+    /* background-color: black; */
+    /* color: white; */
+}
+
+main {
+    display: flex;
+    flex : 1;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
-footer{
-    padding: 16px;
-    /*background-color: black;
-    color: white;*/
-    display: flex;
-}
-.title{
+.title {
     font-size: 64px;
 }
-.menu-item{
+
+.menu-item {
     font-size: 32px;
 }
 
-.select{
+.select {
     background-color: black;
     color: white;
 }
 
-.hide{
+.hide {
     display: none;
 }

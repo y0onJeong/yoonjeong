@@ -3,46 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>  </title>
     <style>
         @import url('./main.css');
     </style>
 </head>
-
 <body>
-    <header>version 1.0</header>
-    <main id="main-menu">
-    <div class="title">
-        Dungeon & Drafons
-    </div>
-    <div class="menu-item select" data-actio="start">
-        New
-    </div>
-    <div class="menu-item" data-actio="Load">
-        Load
-    </div>
-    <div class="menu-item" data-actio="option">
-        Option
-    </div>
-    <div class="menu-item" data-actio="credit">
-        credit
-    </div>
 
+    <header>
+        <div> version 1.0 </div>
+    </header>
+
+    <main id="main-menu" >
+        <div class="title" >Dungeon & Dragons</div>
+        <div class="menu-item" data-action="new" >New</div>
+        <div class="menu-item" data-action="load" >Load</div>
+        <div class="menu-item" data-action="option" >Option</div>
+        <div class="menu-item" data-action="credit" > Credit </div>
     </main>
-    <main id="credit-screen" class="hide">
-    <div class="credit-title">Credits</div>
-    <div class="credit-item">Game Design: gbox3d</div>
-    <div class="credit-item">programming: gbox3d</div>
-    <div class="credit-item">Art: </div>
-    <div class="back-button" data-action="back">Back to Main Menu</div>
 
+    <main id="credit-screen" class="hide" >
+        <div class="credit-title">Credits</div>        
+        <div class="credit-item">Game Design: gbox3d</div>
+        <div class="credit-item">Programming: gbox3d</div>
+        <div class="credit-item">Art: </div>
+        <div class="back-button" data-action="back">Back to Main Menu</div>    
     </main>
-    <footer>@yo0njeong</footer>
 
+
+
+    <footer>
+        <div>@yo0njeong</div>
+    </footer>
 
     <script type="module">
-        import main from '/index.js'
+        import main from './index.js'
         main();
     </script>
+    
 </body>
 </html>
