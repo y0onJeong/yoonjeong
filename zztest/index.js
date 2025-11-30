@@ -2,10 +2,7 @@
 
 // 1. 상품 데이터
 const products = [
-   { id: 101, name: "시그니처 울 코트", category: "outer", price: 129000, image: "img/coat.jpg", 
-        description: "고급 울 90% 혼방 소재를 사용하여 보온성이 뛰어난 시그니처 롱 코트입니다. 클래식한 디자인으로 매년 꺼내 입기 좋습니다.", 
-        details: "색상: 블랙, 네이비 | 사이즈: S, M, L | 소재: 울 90%, 나일론 10%" 
-    },
+   { id: 101, name: "시그니처 울 코트", category: "outer", price: 129000, image: "img/coat.jpg", description: "고급 울 90% 혼방 소재를 사용하여 보온성이 뛰어난 시그니처 롱 코트입니다. 클래식한 디자인으로 매년 꺼내 입기 좋습니다.", details: "색상: 블랙, 네이비 | 사이즈: S, M, L | 소재: 울 90%, 나일론 10%" },
     { id: 102, name: "오버핏 맨투맨 티셔츠", category: "top", price: 35000, image: "https://via.placeholder.com/250x300?text=Top+Tshirt", description: "루즈한 핏으로 편안하게 착용할 수 있는 기모 안감 맨투맨 티셔츠입니다. 다양한 하의와 매치하기 쉬운 기본 아이템.", details: "색상: 화이트, 그레이, 블랙 | 사이즈: Free | 소재: 면 100% (기모)" },
     { id: 103, name: "와이드 핏 데님 팬츠", category: "bottom", price: 49000, image: "https://via.placeholder.com/250x300?text=Bottom+Jeans", description: "트렌디한 와이드 핏으로 다리가 길어 보이는 효과를 주며, 사계절 착용 가능한 탄탄한 데님 소재입니다.", details: "색상: 연청, 중청, 진청 | 사이즈: 26~32 | 소재: 데님" },
     { id: 104, name: "가을 니트 가디건", category: "outer", price: 78000, image: "https://via.placeholder.com/250x300?text=Outer+Knit", description: "부드러운 촉감의 니트 가디건입니다. 간절기에 가볍게 걸치거나, 겨울에 이너로 활용하기 좋습니다.", details: "색상: 베이지, 브라운 | 사이즈: S, M | 소재: 아크릴 80%, 폴리에스터 20%" },
