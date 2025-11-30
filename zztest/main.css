@@ -1,10 +1,10 @@
-/* style.css */
+/* main.css */
 
 /* 🎯 1. 기본 설정 및 레이아웃 */
 body {
     font-family: 'Noto Sans KR', sans-serif; 
     margin: 0;
-    padding-top: 60px; /* 고정 헤더 높이만큼 여백 */
+    padding-top: 60px; 
     background-color: #ffffff;
     color: #333;
     line-height: 1.6;
@@ -74,12 +74,12 @@ body {
     background-color: #f0f0f0;
     color: #333;
     border: 1px solid #ddd;
-    border-radius: 5px 0 0 5px; /* 오른쪽 모서리 둥글기 제거 */
+    border-radius: 5px 0 0 5px; 
     padding: 8px 15px;
     font-size: 0.9em;
     font-weight: 600;
     cursor: pointer;
-    margin-right: -1px; /* 경계선 겹치게 하여 간격 제거 */
+    margin-right: -1px; 
     transition: background-color 0.2s;
 }
 #login-button:hover {
@@ -101,8 +101,8 @@ body {
 #cart-button {
     background: none;
     border: 1px solid #ddd; 
-    border-left: none; /* 왼쪽 경계선 제거하여 붙임 */
-    border-radius: 0 5px 5px 0; /* 왼쪽 모서리 둥글기 제거 */
+    border-left: none; 
+    border-radius: 0 5px 5px 0; 
     font-size: 1.1em;
     font-weight: bold;
     color: #555;
@@ -125,7 +125,7 @@ body {
 #hero-section {
     height: 500px; 
     background-color: #f7f7f7; 
-    display: flex; /* JS에서 display:none 제어 */
+    display: flex; 
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -159,7 +159,7 @@ body {
     color: white;
     border: 2px solid #007bff;
 }
-.sub-action-btn { /* 이벤트/쿠폰 확인 버튼 */
+.sub-action-btn { 
     background-color: white;
     color: #007bff;
     border: 2px solid #007bff;
@@ -245,6 +245,7 @@ footer {
 
 /* 🎯 7. 모달 공통 스타일 및 개별 스타일 */
 .modal {
+    /* 초기에는 숨김 */
     display: none; 
     position: fixed;
     z-index: 2000; 
