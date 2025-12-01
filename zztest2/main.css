@@ -348,6 +348,35 @@ footer {
 .detail-text-info .add-to-cart-btn.large-btn { width: 100%; padding: 15px; background-color: #007bff; color: white; border: none; border-radius: 5px; font-size: 1.1em; font-weight: bold; cursor: pointer; margin-top: 15px; }
 .detail-text-info .add-to-cart-btn.large-btn:hover { background-color: #0056b3; }
 
+/* ⭐⭐⭐ 옵션 선택 필드 스타일 ⭐⭐⭐ */
+.option-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+.option-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #555;
+}
+.option-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+    /* 드롭다운 화살표 커스터마이징 (필요 없으면 삭제 가능) */
+    appearance: none; 
+    background: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M287%20173.5c-3.7%203.7-7.7%205.5-12.2%205.5s-8.5-1.8-12.2-5.5l-123%20123.1c-3.7%203.7-7.7%205.5-12.2%205.5s-8.5-1.8-12.2-5.5L5.4%20173.5c-3.7-3.7-5.5-7.7-5.5-12.2s1.8-8.5%205.5-12.2l134-134c3.7-3.7%207.7-5.5%2012.2-5.5s8.5%201.8%2012.2%205.5l134%20134c3.7%203.7%205.5%207.7%205.5%2012.2s-1.8%208.5-5.5%2012.2z%22%2F%3E%3C%2Fsvg%3E') no-repeat right 10px center / 10px 10px;
+}
+/* ⭐⭐⭐ 옵션 선택 필드 스타일 끝 ⭐⭐⭐ */
+
+.detail-description-box, .detail-spec-box { margin-bottom: 20px; }
+.detail-description-box h4, .detail-spec-box h4 { font-size: 1.1em; font-weight: 600; color: #333; margin: 0 0 8px 0; }
+.detail-description-box p, .detail-spec-box p { font-size: 0.95em; color: #555; line-height: 1.5; white-space: pre-wrap; }
+.detail-text-info .add-to-cart-btn.large-btn { width: 100%; padding: 15px; background-color: #007bff; color: white; border: none; border-radius: 5px; font-size: 1.1em; font-weight: bold; cursor: pointer; margin-top: 15px; }
+.detail-text-info .add-to-cart-btn.large-btn:hover { background-color: #0056b3; }
+
 /* 🎯 8. 반응형 조정 (768px 이하 모바일 화면) */
 @media (max-width: 768px) {
     /* 헤더 */

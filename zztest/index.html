@@ -41,12 +41,26 @@
     <div id="login-modal" class="modal">
         <div class="modal-content">
             <span class="close-btn login-close" aria-label="닫기">&times;</span>
-            <h2>👤 로그인</h2>
+            <h2 id="modal-title">👤 로그인</h2>
+
             <form id="login-form">
                 <input type="text" id="username" placeholder="아이디" required>
                 <input type="password" id="password" placeholder="비밀번호" required>
                 <button type="submit" class="modal-action-btn">로그인</button>
             </form>
+
+            <form id="signup-form" style="display: none;">
+                <input type="text" id="signup-username" placeholder="사용할 아이디" required>
+                <input type="password" id="signup-password" placeholder="비밀번호" required>
+                <input type="password" id="signup-password-confirm" placeholder="비밀번호 확인" required>
+                <input type="email" id="signup-email" placeholder="이메일 (선택)">
+                <button type="submit" class="modal-action-btn">회원가입 완료</button>
+            </form>
+            
+            <div style="text-align: center; margin-top: 15px;">
+                <a href="#" id="switch-to-signup" class="switch-link">회원가입 하시겠어요?</a>
+                <a href="#" id="switch-to-login" class="switch-link" style="display: none;">이미 계정이 있으세요? 로그인</a>
+            </div>
         </div>
     </div>
 

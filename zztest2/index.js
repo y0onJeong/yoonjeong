@@ -2,14 +2,53 @@
 
 // 1. 상품 데이터
 const products = [
-    { id: 101, name: "시그니처 울 코트", category: "outer", price: 129000, image: "img/coat.jpg", description: "고급 울 90% 혼방 소재를 사용하여 보온성이 뛰어난 시그니처 롱 코트입니다. 클래식한 디자인으로 매년 꺼내 입기 좋습니다.", details: "색상: 아이보리, 블랙, 네이비 | 사이즈: FREE | 소재: 울 90%, 나일론 10%" },
-    { id: 102, name: "오버핏 맨투맨 티셔츠", category: "top", price: 35000, image: "img/mtm.png", description: "루즈한 핏으로 편안하게 착용할 수 있는 기모 안감 맨투맨 티셔츠입니다. 다양한 하의와 매치하기 쉬운 기본 아이템.", details: "색상: 화이트, 그레이, 블랙 | 사이즈: Free | 소재: 면 100% (기모)" },
-    { id: 103, name: "와이드 핏 데님 팬츠", category: "bottom", price: 49000, image: "img/pt.jpg", description: "트렌디한 와이드 핏으로 다리가 길어 보이는 효과를 주며, 사계절 착용 가능한 탄탄한 데님 소재입니다.", details: "색상: 연청, 중청, 진청 | 사이즈: 26~32 | 소재: 데님" },
-    { id: 104, name: "가을 니트 가디건", category: "outer", price: 78000, image: "img/gd.jpg", description: "부드러운 촉감의 니트 가디건입니다. 간절기에 가볍게 걸치거나, 겨울에 이너로 활용하기 좋습니다.", details: "색상: 베이지, 브라운 | 사이즈: S, M | 소재: 아크릴 80%, 폴리에스터 20%" },
-    { id: 105, name: "흰색 무지 반팔티", category: "top", price: 19000, image: "img/mz.jpg", description: "매일 입기 좋은 기본 중의 기본 무지 티셔츠입니다. 여러 장 구매하여 돌려 입기 좋은 가성비 아이템.", details: "색상: ONE | 사이즈: FREE | 소재: 면 100%" },
+    { 
+        id: 101, 
+        name: "시그니처 울 코트", 
+        category: "outer", 
+        price: 129000, 
+        image: "img/coat.jpg", 
+        description: "고급 울 90% 혼방 소재를 사용하여 보온성이 뛰어난 시그니처 롱 코트입니다. 클래식한 디자인으로 매년 꺼내 입기 좋습니다.", 
+        details: "색상: 블랙, 네이비 | 사이즈: S, M, L | 소재: 울 90%, 나일론 10%",
+        options: {
+            colors: ["블랙", "네이비"],
+            sizes: ["S", "M", "L"]
+        } 
+    },
+    { 
+        id: 102, 
+        name: "오버핏 맨투맨 티셔츠", 
+        category: "top", 
+        price: 35000, 
+        image: "img/mtm.png", 
+        description: "루즈한 핏으로 편안하게 착용할 수 있는 기모 안감 맨투맨 티셔츠입니다. 다양한 하의와 매치하기 쉬운 기본 아이템.", 
+        details: "색상: 화이트, 그레이, 블랙 | 사이즈: Free | 소재: 면 100% (기모)",
+        options: {
+            colors: ["화이트", "그레이", "블랙"],
+            sizes: ["Free"]
+        }
+    },
+    { 
+        id: 103, 
+        name: "와이드 핏 데님 팬츠", 
+        category: "bottom", 
+        price: 49000, 
+        image: "img/pt.jpg", 
+        description: "트렌디한 와이드 핏으로 다리가 길어 보이는 효과를 주며, 사계절 착용 가능한 탄탄한 데님 소재입니다.", 
+        details: "색상: 연청, 중청, 진청 | 사이즈: 26~32 | 소재: 데님",
+        options: {
+            colors: ["연청", "중청", "진청"],
+            sizes: ["26", "28", "30", "32"]
+        }
+    },
+    { id: 104, name: "가을 니트 가디건", category: "outer", price: 78000, image: "img/gd.jpg", 
+        description: "부드러운 촉감의 니트 가디건입니다. 간절기에 가볍게 걸치거나, 겨울에 이너로 활용하기 좋습니다.", details: "색상: 베이지, 브라운 | 사이즈: S, M | 소재: 아크릴 80%, 폴리에스터 20%", options: { colors: ["베이지", "브라운"], sizes: ["S", "M"] } },
+    { id: 105, name: "베이직 무지 티셔츠", category: "top", price: 19000, image: "img/mz.jpg", description: "매일 입기 좋은 기본 중의 기본 무지 티셔츠입니다. 여러 장 구매하여 돌려 입기 좋은 가성비 아이템.", details: 
+        "색상: 화이트, 블랙 | 사이즈: FREE | 소재: 면 100%", options: { colors: ["화이트", "블랙"], sizes: ["FREE"] } },
 ];
 
-// 2. DOM 요소 및 상태 변수
+
+// 2. DOM 요소 및 상태 변수 (변동 없음)
 const productListSection = document.getElementById('product-list');
 const navLinks = document.querySelectorAll('.nav-link[data-category]');
 const header = document.getElementById('main-header');
@@ -22,16 +61,16 @@ let cart = JSON.parse(localStorage.getItem('cartItems')) || [];
 
 const loginButton = document.getElementById('login-button');
 const loginModal = document.getElementById('login-modal');
-const modalTitle = document.getElementById('modal-title'); // 모달 제목 추가
+const modalTitle = document.getElementById('modal-title'); 
 const loginForm = document.getElementById('login-form');
 const usernameInput = document.getElementById('username'); 
 
-// ✨ 회원가입 관련 요소 추가
+// 회원가입 관련 요소
 const signupForm = document.getElementById('signup-form');
 const switchToSignupLink = document.getElementById('switch-to-signup');
 const switchToLoginLink = document.getElementById('switch-to-login');
 
-// 장바구니 관련 요소 (핵심)
+// 장바구니 관련 요소
 const cartButton = document.getElementById('cart-button');
 const cartModal = document.getElementById('cart-modal'); 
 const cartCloseButton = document.querySelector('.cart-close');
@@ -47,7 +86,9 @@ const detailCloseButton = document.querySelector('.detail-close');
 const productDetailInfo = document.getElementById('product-detail-info');
 
 
-/** 로그인 상태 확인 및 버튼 UI 업데이트 */
+// 3. 유틸리티 함수
+
+/** 로그인 상태 확인 및 버튼 UI 업데이트 (변동 없음) */
 function checkLoginStatus() {
     if (isLoggedIn) {
         const username = localStorage.getItem('loggedInUser') || '회원';
@@ -67,12 +108,13 @@ function handleLogout() {
     alert('로그아웃되었습니다.');
 }
 
-/** 상품 카드 생성 (변동 없음) */
+// ⭐ [핵심 변경] createProductCard: 옵션 유무에 따라 동작 분기
 function createProductCard(product) {
     const card = document.createElement('div');
     card.classList.add('product-card');
     card.setAttribute('data-product-id', product.id);
     const formattedPrice = product.price.toLocaleString('ko-KR'); 
+
     card.innerHTML = `
         <img src="${product.image}" alt="${product.name}">
         <div class="card-info">
@@ -81,16 +123,32 @@ function createProductCard(product) {
         </div>
         <button class="add-to-cart-btn" data-product-id="${product.id}">장바구니 담기</button>
     `;
+
+    // 상품 카드 클릭 시 상세 모달 열기
     card.addEventListener('click', (e) => {
         if (!e.target.classList.contains('add-to-cart-btn')) {
             showProductDetail(product.id);
         }
     });
+
+    // 카드 내 '장바구니 담기' 버튼 클릭 시 (옵션 유무 분기)
     const addToCartBtn = card.querySelector('.add-to-cart-btn');
     addToCartBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        addToCart(product.id);
+        
+        const hasOptions = product.options && 
+            (product.options.colors.length > 0 || product.options.sizes.length > 0);
+
+        if (hasOptions) {
+            // 옵션이 있다면 상세 모달로 이동 유도 (색상/사이즈 선택 강제)
+            alert('옵션(색상/사이즈) 선택을 위해 상세 페이지로 이동합니다.');
+            showProductDetail(product.id);
+        } else {
+            // 옵션이 없다면 바로 추가 (옵션 값은 기본값으로 전달)
+            addToCart(product.id, 'N/A', 'N/A'); 
+        }
     });
+
     return card;
 }
 function renderProducts(filterCategory) {
@@ -110,9 +168,18 @@ function updateCartDisplay() {
     const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
     cartCountElement.textContent = totalCount;
 }
-function addToCart(productId) {
+
+// ⭐ [핵심 변경] addToCart: color, size 매개변수 추가 및 장바구니 로직 수정
+function addToCart(productId, color = 'N/A', size = 'N/A') {
     const productToAdd = products.find(p => p.id === productId);
-    const existingItem = cart.find(item => item.id === productId);
+    
+    // 동일한 상품 ID, 색상, 사이즈를 가진 아이템을 찾습니다.
+    const existingItem = cart.find(item => 
+        item.id === productId &&
+        item.color === color &&
+        item.size === size
+    );
+    
     if (existingItem) {
         existingItem.quantity += 1;
     } else {
@@ -120,22 +187,32 @@ function addToCart(productId) {
             id: productToAdd.id, 
             name: productToAdd.name, 
             price: productToAdd.price, 
-            quantity: 1 
+            quantity: 1,
+            color: color, 
+            size: size    
         });
     }
+
     updateLocalStorage();
     updateCartDisplay();
-    alert(`${productToAdd.name}이(가) 장바구니에 담겼습니다.`);
+    alert(`${productToAdd.name} (${color}, ${size})이(가) 장바구니에 담겼습니다.`);
 }
-function removeFromCart(productId) {
-    cart = cart.filter(item => item.id !== productId);
+
+// ⭐ [핵심 변경] removeFromCart: color, size 매개변수 추가하여 특정 옵션 상품만 삭제
+function removeFromCart(productId, color, size) {
+    // ID, 색상, 사이즈가 모두 일치하는 아이템만 제외하고 필터링합니다.
+    cart = cart.filter(item => !(item.id === productId && item.color === color && item.size === size));
+    
     updateLocalStorage();
     updateCartDisplay();
     renderCartModal();
 }
+
+// ⭐ [핵심 변경] renderCartModal: 옵션 정보 표시 및 삭제 버튼에 옵션 데이터 추가
 function renderCartModal() {
     cartItemsContainer.innerHTML = '';
     let total = 0;
+
     if (cart.length === 0) {
         cartItemsContainer.innerHTML = '<p>장바구니가 비어있습니다.</p>';
     } else {
@@ -144,29 +221,52 @@ function renderCartModal() {
             total += itemTotal;
             const cartItemEl = document.createElement('div');
             cartItemEl.classList.add('cart-item');
+            
+            // 상품 이름 옆에 옵션 정보 추가
+            const optionText = item.color !== 'N/A' || item.size !== 'N/A' 
+                ? ` (${item.color} / ${item.size})` 
+                : ''; 
+                
             cartItemEl.innerHTML = `
-                <p>${item.name}</p>
+                <p>${item.name}${optionText}</p>
                 <p>${item.price.toLocaleString()}원 x ${item.quantity}</p>
                 <p>합계: ${itemTotal.toLocaleString()}원</p>
-                <button class="remove-btn" data-id="${item.id}">삭제</button>
+                <button class="remove-btn" data-id="${item.id}" data-color="${item.color}" data-size="${item.size}">삭제</button>
             `;
             cartItemsContainer.appendChild(cartItemEl);
         });
     }
+    
     cartTotalElement.textContent = total.toLocaleString('ko-KR');
+    
+    // 장바구니 삭제 로직: ID, 색상, 사이즈를 모두 기준으로 삭제
     document.querySelectorAll('.remove-btn').forEach(button => {
         button.addEventListener('click', function() {
             const idToRemove = parseInt(this.getAttribute('data-id'));
-            removeFromCart(idToRemove);
+            const colorToRemove = this.getAttribute('data-color');
+            const sizeToRemove = this.getAttribute('data-size');
+            removeFromCart(idToRemove, colorToRemove, sizeToRemove);
         });
     });
 }
+
+// ⭐ [핵심 변경] showProductDetail: 옵션 선택 UI 추가 및 addToCart 호출 시 옵션 전달
 function showProductDetail(productId) {
     const product = products.find(p => p.id === productId);
     if (!product) {
         alert('상품을 찾을 수 없습니다.');
         return;
     }
+
+    // 옵션 선택 UI를 위한 HTML 생성
+    let colorOptionsHTML = product.options.colors.map(color => 
+        `<option value="${color}">${color}</option>`
+    ).join('');
+    
+    let sizeOptionsHTML = product.options.sizes.map(size => 
+        `<option value="${size}">${size}</option>`
+    ).join('');
+    
     productDetailInfo.innerHTML = `
         <div class="detail-container">
             <div class="detail-image">
@@ -179,6 +279,17 @@ function showProductDetail(productId) {
                     <h4>📝 상품 설명</h4>
                     <p>${product.description}</p>
                 </div>
+                
+                <div class="product-options">
+                    <div class="option-group">
+                        <label for="detail-color-select">색상:</label>
+                        <select id="detail-color-select">${colorOptionsHTML}</select>
+                    </div>
+                    <div class="option-group">
+                        <label for="detail-size-select">사이즈:</label>
+                        <select id="detail-size-select">${sizeOptionsHTML}</select>
+                    </div>
+                </div>
                 <div class="detail-spec-box">
                     <h4>🔍 상세 정보</h4>
                     <p>${product.details}</p>
@@ -189,17 +300,21 @@ function showProductDetail(productId) {
             </div>
         </div>
     `;
+
     const detailAddToCartBtn = productDetailInfo.querySelector('.add-to-cart-btn');
     detailAddToCartBtn.addEventListener('click', () => {
-        addToCart(product.id);
+        // 선택된 옵션을 가져와서 전달
+        const selectedColor = document.getElementById('detail-color-select').value;
+        const selectedSize = document.getElementById('detail-size-select').value;
+        addToCart(product.id, selectedColor, selectedSize); 
         productDetailModal.style.display = 'none';
     });
+    
     productDetailModal.style.display = 'block';
 }
 
-// ** ======================================================= **
-// ** ✨ 회원가입 기능 추가: 폼 전환 로직 **
-// ** ======================================================= **
+
+// 4. 로그인/회원가입 폼 전환 로직 (변동 없음)
 
 /** 로그인 폼 표시 */
 function showLoginForm() {
@@ -219,14 +334,15 @@ function showSignupForm() {
     switchToLoginLink.style.display = 'block';
 }
 
-// --- 이벤트 리스너 ---
+
+// 5. 이벤트 리스너 설정 (변동 없음)
 
 // 로그인/로그아웃 버튼 클릭
 loginButton.addEventListener('click', () => {
     if (isLoggedIn) {
         handleLogout();
     } else {
-        showLoginForm(); // 로그인 모달을 열 때 로그인 폼을 먼저 보여줍니다.
+        showLoginForm(); 
         loginModal.style.display = 'block';
     }
 });
@@ -247,19 +363,19 @@ loginForm.addEventListener('submit', (e) => {
     loginForm.reset();
 });
 
-// ✨ 회원가입 폼 전환 이벤트
+// 회원가입 폼 전환 이벤트
 switchToSignupLink.addEventListener('click', (e) => {
     e.preventDefault();
     showSignupForm();
 });
 
-// ✨ 로그인 폼 전환 이벤트
+// 로그인 폼 전환 이벤트
 switchToLoginLink.addEventListener('click', (e) => {
     e.preventDefault();
     showLoginForm();
 });
 
-// ✨ 회원가입 폼 제출 이벤트
+// 회원가입 폼 제출 이벤트
 signupForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -350,7 +466,7 @@ window.addEventListener('click', (e) => {
 });
 
 
-// 6. 페이지 로드 시 초기 실행
+// 6. 페이지 로드 시 초기 실행 (변동 없음)
 document.addEventListener('DOMContentLoaded', () => {
     checkLoginStatus(); 
     heroSection.style.display = 'flex'; 
