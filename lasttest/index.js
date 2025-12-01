@@ -241,7 +241,7 @@ const products = [
             colors: ["멀티"], 
             sizes: ["Free"] 
         }
-    },
+    }
 ];
 
 // 2. DOM 요소 및 상태 변수
