@@ -591,6 +591,20 @@ function showProductDetail(productId) {
 
     if (productDetailModal) productDetailModal.style.display = 'block';
 }
+
+// 🚩 [추가] 랜덤 주문번호 생성 함수
+/** 랜덤하고 유니크한 주문번호 (Order ID)를 생성하는 함수 */
+function generateOrderId() {
+    const now = new Date();
+    // YYMMDD 형식 (예: 251202)
+    const datePart = now.getFullYear().toString().substring(2) + 
+                     (now.getMonth() + 1).toString().padStart(2, '0') + 
+                     now.getDate().toString().padStart(2, '0');
+    // 8자리 랜덤 문자열 (예: ABCDEF12)
+    const randomPart = Math.random().toString(36).substring(2, 10).toUpperCase();
+    
+    return `ZIP-${datePart}-${randomPart}`;
+}
 // ===========================================
 // 3. 이벤트 리스너 및 초기화
 // ===========================================
@@ -773,7 +787,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // 최종 결제 (배송 정보 입력) 로직
+    // 🚩 [수정] 최종 결제 (배송 정보 입력) 로직 (주문번호 팝업 추가)
     if (deliveryForm) {
         deliveryForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -786,11 +800,16 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (allFilled) {
+                // 1. 주문 번호 생성 (비회원/회원 공통 사용 가능)
+                const orderId = generateOrderId();
+                const userName = document.getElementById('input-name').value.trim();
+
                 if (paymentModal) paymentModal.style.display = 'none';
                 
-                alert('✅ 결제가 성공적으로 완료되었습니다. 감사합니다!');
+                // 2. 요청하신 랜덤 주문번호 팝업창 표시
+                alert(`🎉 ${userName}님, 결제가 성공적으로 완료되었습니다!\n\n[주문 번호]: ${orderId}\n\n배송 정보가 정상적으로 접수되었습니다. 감사합니다!`);
 
-                // 장바구니 초기화
+                // 3. 장바구니 초기화
                 cart = [];
                 updateLocalStorage();
                 updateCartDisplay();
