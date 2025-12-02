@@ -252,9 +252,9 @@ const products = [
         price: 15000, 
         image: "img/socks.png", 
         description: "다양한 색상으로 구성된 면 소재의 데일리 양말 세트.", 
-        details: "색상: 멀티 컬러 | 소재: 면, 폴리에스터", 
+        details: "색상: 화이트 | 소재: 면, 폴리에스터", 
         options: { 
-            colors: ["멀티"], 
+            colors: ["화이트"], 
             sizes: ["Free"] 
         }
     }
