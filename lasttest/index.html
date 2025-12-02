@@ -112,31 +112,40 @@
         </section>   
     </main>
 
-    <div id="payment-modal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn" data-modal="payment-modal">&times;</span>
-        <h2>📝 배송 정보 입력</h2>
+   <div id="payment-modal" class="modal">
+    <div class="modal-content small-modal"> <span class="close-btn">&times;</span>
+        
+        <h2 class="modal-title" id="payment-modal-title">📦 배송 정보 입력</h2> 
+
         <form id="delivery-form">
-            
-            <label for="input-name">이름</label>
-            <input type="text" id="input-name" required placeholder="수령인 이름">
-
-            <label for="input-phone">전화번호</label>
-            <input type="tel" id="input-phone" required placeholder="010-1234-5678">
-
-            <label for="input-zipcode">우편번호</label>
-            <input type="text" id="input-zipcode" required placeholder="00000">
-
-            <label for="input-address1">주소</label>
-            <input type="text" id="input-address1" required placeholder="기본 주소">
-
-            <label for="input-address2">상세 주소 (선택)</label>
-            <input type="text" id="input-address2" placeholder="아파트 동/호수 또는 상세 정보">
-
-            <button type="submit" class="modal-action-btn">결제 진행하기 (최종)</button>
+            <div class="form-group">
+                <label for="input-name">수령인</label>
+                <input type="text" id="input-name" required placeholder="수령인 이름">
+            </div>
+            <div class="form-group">
+                <label for="input-phone">연락처</label>
+                <input type="tel" id="input-phone" required placeholder="010-1234-5678">
+            </div>
+            <div class="form-group">
+                <label for="input-zipcode">우편번호</label>
+                <input type="text" id="input-zipcode" placeholder="우편번호 검색 기능 추가 예정">
+            </div>
+            <div class="form-group">
+                <label for="input-address1">기본 주소</label>
+                <input type="text" id="input-address1" required placeholder="기본 주소">
+            </div>
+            <div class="form-group">
+                <label for="input-address2">상세 주소</label>
+                <input type="text" id="input-address2" placeholder="아파트 동/호수 또는 상세 주소">
+            </div>
+            <div class="form-group">
+                <label for="input-memo">배송 요청 사항 (선택)</label>
+                <input type="text" id="input-memo" placeholder="예: 문 앞에 놓아주세요.">
+            </div>
+            <button type="submit" class="large-btn primary-btn">최종 결제하기</button>
         </form>
     </div>
-    </div>
+</div>
 
     
 
