@@ -1,14 +1,14 @@
 // index.js
 
-// 1. 상품 데이터
+// 1. 상품 데이터 (핵심)
 const products = [
     { 
         id: 101, 
         name: "시그니처 울 코트", 
         category: "outer", 
         price: 129000, 
-        image: "img/coat.jpg", 
-        description: "고급 울 90% 혼방 소재를 사용하여 보온성이 뛰어난 시그니처 롱 코트입니다. 클래식한 디자인으로 매년 꺼내 입기 좋습니다.", 
+        image: "img/coat.png", 
+        description: "고급 울 90% 혼방 소재를 사용하여 보온성이 뛰어난 시그니처 롱 코트입니다.", 
         details: "색상: 블랙, 네이비 | 사이즈: S, M, L | 소재: 울 90%, 나일론 10%",
         options: {
             colors: ["블랙", "네이비"],
@@ -21,7 +21,7 @@ const products = [
         category: "top", 
         price: 35000, 
         image: "img/mtm.png", 
-        description: "루즈한 핏으로 편안하게 착용할 수 있는 기모 안감 맨투맨 티셔츠입니다. 다양한 하의와 매치하기 쉬운 기본 아이템.", 
+        description: "루즈한 핏으로 편안하게 착용할 수 있는 기모 안감 맨투맨 티셔츠입니다.", 
         details: "색상: 화이트, 그레이, 블랙 | 사이즈: Free | 소재: 면 100% (기모)",
         options: {
             colors: ["화이트", "그레이", "블랙"],
@@ -34,54 +34,391 @@ const products = [
         category: "bottom", 
         price: 49000, 
         image: "img/pt.jpg", 
-        description: "트렌디한 와이드 핏으로 다리가 길어 보이는 효과를 주며, 사계절 착용 가능한 탄탄한 데님 소재입니다.", 
+        description: "트렌디한 와이드 핏으로 다리가 길어 보이는 효과를 주며, 사계절 착용 가능합니다.", 
         details: "색상: 연청, 중청, 진청 | 사이즈: 26~32 | 소재: 데님",
         options: {
             colors: ["연청", "중청", "진청"],
             sizes: ["26", "28", "30", "32"]
         }
     },
-    { id: 104, name: "가을 니트 가디건", category: "outer", price: 78000, image: "img/gd.jpg", 
-        description: "부드러운 촉감의 니트 가디건입니다. 간절기에 가볍게 걸치거나, 겨울에 이너로 활용하기 좋습니다.", details: "색상: 베이지, 브라운 | 사이즈: S, M | 소재: 아크릴 80%, 폴리에스터 20%", options: { colors: ["베이지", "브라운"], sizes: ["S", "M"] } },
-    { id: 105, name: "베이직 무지 티셔츠", category: "top", price: 19000, image: "img/mz.jpg", description: "매일 입기 좋은 기본 중의 기본 무지 티셔츠입니다. 여러 장 구매하여 돌려 입기 좋은 가성비 아이템.", details: 
-        "색상: 5가지 | 사이즈: S, M, L, XL | 소재: 면 100%", options: { colors: ["화이트", "블랙"], sizes: ["FREE"] } },
+    { 
+        id: 104, 
+        name: "가을 니트 가디건", 
+        category: "outer", 
+        price: 78000, 
+        image: "img/gd.jpg", 
+        description: "부드러운 촉감의 니트 가디건입니다. 간절기에 가볍게 걸치거나, 겨울에 이너로 활용하기 좋습니다.", 
+        details: "색상: 베이지, 브라운 | 사이즈: S, M | 소재: 아크릴 80%, 폴리에스터 20%", 
+        options: { 
+            colors: ["베이지", "브라운"], 
+            sizes: ["S", "M"] 
+        } 
+    },
+    { 
+        id: 105, 
+        name: "베이직 무지 반팔 티셔츠", 
+        category: "top", 
+        price: 19000, 
+        image: "img/mz.jpg", 
+        description: "매일 입기 좋은 기본 중의 기본 무지 반팔 티셔츠입니다.", 
+        details: "색상: 화이트, 블랙 | 사이즈: FREE | 소재: 면 100%", 
+        options: { 
+            colors: ["화이트", "블랙"], 
+            sizes: ["FREE"] 
+        } 
+    },
+    { 
+        id: 106, 
+        name: "데일리 로고 볼캡", 
+        category: "acc", 
+        price: 25000, 
+        image: "img/cap.png", 
+        description: "면 100% 소재의 클래식 볼캡입니다. 미니멀한 로고 자수로 포인트를 주었습니다.", 
+        details: "색상: 블랙, 화이트, 베이지 | 사이즈: Free | 소재: 면 100%",
+        options: {
+            colors: ["블랙", "화이트", "베이지"],
+            sizes: ["Free"]
+        } 
+    },
+    { 
+        id: 201, 
+        name: "클래식 트렌치 코트", 
+        category: "outer", 
+        price: 159000, 
+        image: "img/trench.jpg", 
+        description: "가을 필수 아이템. 견고한 코튼 소재의 오리지널 트렌치 코트.", 
+        details: "색상: 베이지, 카키 | 사이즈: S, M, L | 소재: 면 100%", 
+        options: { 
+            colors: ["베이지", "카키"], 
+            sizes: ["S", "M", "L"] 
+        } 
+    },
+    { 
+        id: 202, 
+        name: "경량 패딩 조끼", 
+        category: "outer", 
+        price: 55000, 
+        image: "img/padding.jpg", 
+        description: "가벼우면서 보온성이 뛰어난 경량 패딩 조끼입니다. 이너 또는 아우터로 활용 가능.", 
+        details: "색상: 블랙, 차콜 | 사이즈: M, L, XL | 소재: 폴리에스터 100%", 
+        options: { 
+            colors: ["블랙", "차콜"], 
+            sizes: ["M", "L", "XL"] 
+        } 
+    },
+    { 
+        id : 203, 
+        name: "프리미엄 구스 다운 패딩", 
+        category: "outer", 
+        price: 120000, 
+        image: "img/goose_padding.png", 
+        description: "최상급 구스 다운 충전재를 사용하여 극한의 추위에도 따뜻함을 유지해주는 프리미엄 롱 패딩입니다. 생활 방수 기능 탑재.", 
+        details: "색상: 블랙 | 사이즈: FREE | 소재: 겉감-나일론 100%, 충전재-구스 다운 80%, 깃털 20%", 
+        options: { 
+            colors: ["블랙"], 
+            sizes: ["FREE"] 
+        } 
+    },
+    { 
+        id: 301, 
+        name: "스트라이프 셔츠", 
+        category: "top", 
+        price: 39000, 
+        image: "img/shirt.jpg", 
+        description: "깔끔한 디자인의 클래식 스트라이프 셔츠.", 
+        details: "색상: 블루 스트라이프 | 사이즈: 95, 100, 105 | 소재: 면 100%", 
+        options: { 
+            colors: ["블루"], 
+            sizes: ["95", "100", "105"] 
+        } 
+    },
+    { 
+        id: 302, 
+        name: "캐시미어 블렌드 니트", 
+        category: "top", 
+        price: 68000, 
+        image: "img/knit.jpg", 
+        description: "부드러운 캐시미어 혼방으로 고급스러운 촉감을 자랑합니다.", 
+        details: "색상: 아이보리, 블루, 브라운 | 사이즈: Free | 소재: 캐시미어, 울 혼방", 
+        options: { 
+            colors: ["아이보리", "블루", "브라운"], 
+            sizes: ["Free"] 
+        } 
+    },
+    { 
+        id: 303, 
+        name: "베이직 긴팔 티셔츠", 
+        category: "top", 
+        price: 22000, 
+        image: "img/longsleeve.jpg", 
+        description: "다양한 색상으로 준비된 활용도 높은 기본 긴팔 티셔츠.", 
+        details: "색상: 블랙, 화이트 | 사이즈: FREE | 소재: 면 100%", 
+        options: { 
+            colors: ["블랙", "화이트"], 
+            sizes: ["FREE"] 
+        } 
+    },
+    { 
+        id: 401, 
+        name: "슬랙스 밴딩 팬츠", 
+        category: "bottom", 
+        price: 59000, 
+        image: "img/slacks.jpg", 
+        description: "편안한 밴딩 허리와 깔끔하게 떨어지는 핏의 슬랙스.", 
+        details: "색상: 블랙, 네이비 | 사이즈: S, M, L, XL | 소재: 폴리에스터, 레이온", 
+        options: { 
+            colors: ["블랙", "네이비"], 
+            sizes: ["S", "M", "L", "XL"] 
+        } 
+    },
+    { 
+        id: 402, 
+        name: "빈티지 핀턱 청바지", 
+        category: "bottom", 
+        price: 65000, 
+        image: "img/jeans.jpg", 
+        description: "빈티지 워싱이 매력적인 레귤러 핏 일자 청바지.", 
+        details: "색상: 빈티지 블루 | 사이즈: 28~34 | 소재: 데님", 
+        options: { 
+            colors: ["블루"], 
+            sizes: ["28", "30", "32", "34"] 
+        } 
+    },
+    { 
+        id: 403, 
+        name: "플리츠 롱 스커트", 
+        category: "bottom", 
+        price: 45000, 
+        image: "img/skirt.jpg", 
+        description: "우아한 주름이 돋보이는 롱 기장의 플리츠 스커트.", 
+        details: "색상: 블랙, 그레이 | 사이즈: Free | 소재: 폴리에스터 100%", 
+        options: { 
+            colors: ["블랙", "그레이"], 
+            sizes: ["Free"] 
+        } 
+    },
+    { 
+        id: 501, 
+        name: "심플 숄더백", 
+        category: "acc", 
+        price: 88000, 
+        image: "img/bag.jpg", 
+        description: "데일리로 활용하기 좋은 미니멀 디자인의 숄더백.", 
+        details: "색상: 블랙, 브라운 | 소재: 인조 가죽", 
+        options: { 
+            colors: ["블랙", "브라운"], 
+            sizes: ["Free"] 
+        } 
+    },
+    { 
+        id: 502, 
+        name: "실버 체인 목걸이", 
+        category: "acc", 
+        price: 32000, 
+        image: "img/necklace.jpg", 
+        description: "단독으로 착용하거나 레이어드하기 좋은 심플한 실버 목걸이.", 
+        details: "색상: 실버 | 소재: Silver 925", 
+        options: { 
+            colors: ["실버"], 
+            sizes: ["Free"] 
+        } 
+    },
+    { 
+        id: 503, 
+        name: "울 머플러", 
+        category: "acc", 
+        price: 42000, 
+        image: "img/muffler.png", 
+        description: "겨울철 필수 아이템. 부드러운 촉감의 울 혼방 머플러.", 
+        details: "색상: 레드, 그린, 베이지 | 소재: 울 혼방", 
+        options: { 
+            colors: ["레드", "그린", "베이지", "화이트"], 
+            sizes: ["Free"] 
+        } 
+    },
+    { 
+        id: 504, 
+        name: "데일리 양말 세트 (5켤레)", 
+        category: "acc", 
+        price: 15000, 
+        image: "img/socks.png", 
+        description: "다양한 색상으로 구성된 면 소재의 데일리 양말 세트.", 
+        details: "색상: 멀티 컬러 | 소재: 면, 폴리에스터", 
+        options: { 
+            colors: ["멀티"], 
+            sizes: ["Free"] 
+        }
+    }
 ];
+
 
 // 2. DOM 요소 및 상태 변수
 const productListSection = document.getElementById('product-list');
+const productListContainer = document.getElementById('product-list-container');
+const sectionTitle = productListContainer ? productListContainer.querySelector('.section-title') : null; 
 const navLinks = document.querySelectorAll('.nav-link[data-category]');
 const header = document.getElementById('main-header');
 const heroSection = document.getElementById('hero-section'); 
 const mainLogo = document.querySelector('#main-header h1'); 
+const modalTitle = document.getElementById('modal-title'); 
 
 // Local Storage에서 상태 로드
 let isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn')) || false;
-// 장바구니 항목은 이제 uniqueId와 옵션을 포함합니다.
 let cart = JSON.parse(localStorage.getItem('cartItems')) || []; 
 
 const loginButton = document.getElementById('login-button');
 const loginModal = document.getElementById('login-modal');
 const loginForm = document.getElementById('login-form');
+const signupForm = document.getElementById('signup-form'); 
 const usernameInput = document.getElementById('username'); 
+const switchToSignupLink = document.getElementById('switch-to-signup'); 
+const switchToLoginLink = document.getElementById('switch-to-login'); 
 
 const cartButton = document.getElementById('cart-button');
 const cartModal = document.getElementById('cart-modal'); 
-const cartCloseButton = document.querySelector('.cart-close');
 const cartItemsContainer = document.getElementById('cart-items');
 const cartTotalElement = document.getElementById('cart-total');
 const cartCountElement = document.getElementById('cart-count');
 
+// [New] 쿠폰 관련 DOM 요소
 const couponModal = document.getElementById('coupon-modal');
-const couponCheckButton = document.getElementById('coupon-check-btn');
+const couponCheckButton = document.getElementById('coupon-check-btn'); 
+const couponListContainer = document.getElementById('coupon-list'); // 다운로드 가능 목록
+const ownedCouponListContainer = document.getElementById('owned-coupon-list'); // 다운로드된 목록
+const ownedCouponCountElement = document.getElementById('owned-coupon-count'); // 쿠폰 개수 표시
+
 const productDetailModal = document.getElementById('product-detail-modal');
-const detailCloseButton = document.querySelector('.detail-close');
 const productDetailInfo = document.getElementById('product-detail-info');
 
+// 결제 관련 요소
+const paymentModal = document.getElementById('payment-modal'); 
+const deliveryForm = document.getElementById('delivery-form'); 
+const loginCheckoutBtn = document.getElementById('login-checkout-btn'); 
+const guestCheckoutBtn = document.getElementById('guest-checkout-btn'); 
 
-// --- 핵심 기능 함수 ---
 
-/** 1. 로그인 상태 확인 및 버튼 UI 업데이트 */
+// ===========================================
+// [New] 쿠폰 데이터 및 로직
+// ===========================================
+
+/** 1. 쿠폰 데이터 정의 (다운로드 가능한 쿠폰) */
+const AVAILABLE_COUPONS = [
+    { id: 'C001', name: '🎉 웰컴 쿠폰 10% 할인', condition: '신규 회원 가입 시 즉시 발급! (최대 5,000원)' },
+    { id: 'C002', name: '🎁 아우터 5만원 이상 구매 시 5,000원 할인', condition: '아우터 카테고리 상품에 한해 사용 가능' },
+    { id: 'C003', name: '🌟 주말 한정 20% 특별 할인', condition: '토/일요일 전 상품 적용 (최대 10,000원)' }
+];
+
+/** 2. 사용자가 다운로드한 쿠폰 데이터 (Local Storage에서 로드) */
+let ownedCoupons = JSON.parse(localStorage.getItem('ownedCoupons')) || []; 
+
+function updateCouponLocalStorage() {
+    localStorage.setItem('ownedCoupons', JSON.stringify(ownedCoupons));
+}
+
+/** 3. 쿠폰을 다운로드하는 함수 */
+function downloadCoupon(couponId) {
+    const isAlreadyOwned = ownedCoupons.some(coupon => coupon.id === couponId);
+    if (isAlreadyOwned) {
+        alert('이미 다운로드하신 쿠폰입니다.');
+        return;
+    }
+
+    const couponToDownload = AVAILABLE_COUPONS.find(c => c.id === couponId);
+    if (couponToDownload) {
+        // 쿠폰함에 추가 (status를 'owned'로 가정)
+        ownedCoupons.push({ ...couponToDownload, status: 'owned' }); 
+        
+        updateCouponLocalStorage();
+        
+        // 화면 리렌더링 (두 목록 모두 업데이트)
+        renderAvailableCoupons();
+        renderOwnedCoupons();
+        
+        alert(`"${couponToDownload.name}" 쿠폰 다운로드가 완료되었습니다!`);
+    }
+}
+
+/** 4. 쿠폰 아이템을 렌더링하는 함수 (재사용) */
+function renderCouponItem(coupon, isOwned) {
+    const couponItem = document.createElement('div');
+    couponItem.className = 'coupon-item';
+    
+    const couponInfo = `<div class="coupon-info">
+        <h4>${coupon.name}</h4>
+        <p>${coupon.condition}</p>
+    </div>`;
+    
+    let actionButtonHTML = '';
+    
+    if (isOwned) {
+        // 나의 쿠폰함: 다운 완료 또는 사용 가능 상태 표시
+        actionButtonHTML = `<button class="coupon-action-btn owned-btn">사용 가능</button>`;
+    } else {
+        // 다운로드 가능 쿠폰: 다운로드 버튼 표시
+        const isDownloaded = ownedCoupons.some(c => c.id === coupon.id);
+        if (isDownloaded) {
+             actionButtonHTML = `<button class="coupon-action-btn owned-btn">다운 완료</button>`;
+        } else {
+             actionButtonHTML = `<button class="coupon-action-btn download-btn" data-coupon-id="${coupon.id}">다운받기</button>`;
+        }
+    }
+    
+    couponItem.innerHTML = couponInfo + actionButtonHTML;
+    return couponItem;
+}
+
+
+/** 5. 다운로드 가능 쿠폰 목록 렌더링 */
+function renderAvailableCoupons() {
+    if (!couponListContainer) return;
+    
+    couponListContainer.innerHTML = '<h3>다운로드 가능 쿠폰</h3>'; 
+
+    if (AVAILABLE_COUPONS.length === 0) {
+        couponListContainer.innerHTML += '<p class="no-coupon-message">현재 다운로드 가능한 쿠폰이 없습니다.</p>';
+        return;
+    }
+
+    AVAILABLE_COUPONS.forEach(coupon => {
+        const item = renderCouponItem(coupon, false);
+        couponListContainer.appendChild(item);
+    });
+
+    // 다운로드 버튼에 이벤트 리스너 추가
+    couponListContainer.querySelectorAll('.download-btn').forEach(button => {
+        button.addEventListener('click', (e) => {
+            const couponId = e.target.dataset.couponId;
+            downloadCoupon(couponId);
+        });
+    });
+}
+
+/** 6. 나의 쿠폰함 목록 렌더링 */
+function renderOwnedCoupons() {
+    if (!ownedCouponListContainer || !ownedCouponCountElement) return;
+
+    ownedCouponListContainer.innerHTML = ''; 
+    ownedCouponCountElement.textContent = ownedCoupons.length;
+
+    if (ownedCoupons.length === 0) {
+        ownedCouponListContainer.innerHTML = '<p class="no-coupon-message">다운로드된 쿠폰이 없습니다.</p>';
+        return;
+    }
+
+    ownedCoupons.forEach(coupon => {
+        const item = renderCouponItem(coupon, true);
+        ownedCouponListContainer.appendChild(item);
+    });
+}
+
+
+// ===========================================
+// 2. 핵심 기능 함수 (기존 코드)
+// ===========================================
+
+/** 로그인 상태 확인 및 버튼 UI 업데이트 */
 function checkLoginStatus() {
+    if (!loginButton) return;
     if (isLoggedIn) {
         const username = localStorage.getItem('loggedInUser') || '회원';
         loginButton.innerHTML = `👋 ${username} (로그아웃)`;
@@ -92,17 +429,29 @@ function checkLoginStatus() {
     }
 }
 
-/** 2. 로그아웃 처리 */
+/** 로그아웃 처리 */
 function handleLogout() {
     isLoggedIn = false;
     localStorage.setItem('isLoggedIn', JSON.stringify(false));
     localStorage.removeItem('loggedInUser');
     checkLoginStatus(); 
-    loginModal.style.display = 'none';
+    if (loginModal) loginModal.style.display = 'none';
     alert('로그아웃되었습니다.');
 }
 
-/** 3. 상품 카드 생성 */
+/** 장바구니 Local Storage 업데이트 */
+function updateLocalStorage() {
+    localStorage.setItem('cartItems', JSON.stringify(cart));
+}
+
+/** 장바구니 카운트 업데이트 */
+function updateCartDisplay() {
+    if (!cartCountElement) return;
+    const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartCountElement.textContent = totalCount;
+}
+
+/** 상품 카드 생성 */
 function createProductCard(product) {
     const card = document.createElement('div');
     card.classList.add('product-card');
@@ -129,23 +478,28 @@ function createProductCard(product) {
     const addToCartBtn = card.querySelector('.add-to-cart-btn');
     addToCartBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        // 상품 카드에서 바로 담을 경우, 옵션이 있다면 상세 모달로 이동 유도
-        if (product.options) {
-             alert('옵션(색상/사이즈) 선택을 위해 상세 페이지로 이동합니다.');
-             showProductDetail(product.id);
+        if (product.options && (product.options.colors || product.options.sizes)) {
+            alert('옵션(색상/사이즈) 선택을 위해 상세 페이지로 이동합니다.');
+            showProductDetail(product.id);
         } else {
-             // 옵션이 없다면 바로 추가
-             addToCart(product.id, null, null); 
+            addToCart(product.id, null, null, 1); 
         }
     });
 
     return card;
 }
 
-/** 4. 상품 목록 렌더링 */
+/** 상품 목록 렌더링 */
 function renderProducts(filterCategory) {
+    if (!productListSection) return;
+
     productListSection.innerHTML = ''; 
     
+    // BEST 카테고리일 때만 제목 표시 제어
+    if (sectionTitle) {
+        sectionTitle.style.display = filterCategory === 'all' ? 'block' : 'none';
+    }
+
     const filteredProducts = products.filter(product => 
         filterCategory === 'all' || product.category === filterCategory
     );
@@ -156,37 +510,26 @@ function renderProducts(filterCategory) {
     });
 }
 
-/** 5. 장바구니 Local Storage 업데이트 */
-function updateLocalStorage() {
-    localStorage.setItem('cartItems', JSON.stringify(cart));
-}
-
-/** 6. 장바구니 카운트 업데이트 */
-function updateCartDisplay() {
-    const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-    cartCountElement.textContent = totalCount;
-}
-
-/** 7. 장바구니에 상품 추가 (옵션 포함) */
-function addToCart(productId, selectedColor, selectedSize) {
+/** 장바구니에 상품 추가 (옵션, 수량 및 Unique ID 관리) */
+function addToCart(productId, selectedColor, selectedSize, quantity = 1) { 
     const productToAdd = products.find(p => p.id === productId);
     
-    // 장바구니 항목을 고유하게 식별할 ID (상품 ID + 선택 옵션)
+    if (!productToAdd) return;
+
+    // 고유 ID 생성 (상품 ID + 선택 옵션)
     const uniqueItemId = `${productId}-${selectedColor || 'NoColor'}-${selectedSize || 'NoSize'}`;
 
-    // 장바구니 내에 이미 같은 옵션의 상품이 있는지 확인
     const existingItem = cart.find(item => item.uniqueId === uniqueItemId);
 
     if (existingItem) {
-        existingItem.quantity += 1;
+        existingItem.quantity += quantity; 
     } else {
         cart.push({ 
             id: productToAdd.id, 
-            uniqueId: uniqueItemId, // 고유 옵션을 포함한 ID
+            uniqueId: uniqueItemId,
             name: productToAdd.name, 
             price: productToAdd.price, 
-            quantity: 1,
-            // 옵션 정보 저장
+            quantity: quantity, 
             color: selectedColor,
             size: selectedSize
         });
@@ -195,16 +538,15 @@ function addToCart(productId, selectedColor, selectedSize) {
     updateLocalStorage();
     updateCartDisplay();
     
-    let alertMessage = `${productToAdd.name}`;
+    let alertMessage = `${productToAdd.name} ${quantity}개`;
     if (selectedColor || selectedSize) {
-        alertMessage += ` (${selectedColor || '옵션없음'} / ${selectedSize || '옵션없음'})`;
+        alertMessage += ` (색상: ${selectedColor || '없음'} / 사이즈: ${selectedSize || '없음'})`;
     }
-    alert(alertMessage + '이(가) 장바구니에 담겼습니다.');
+    alert(alertMessage + '가 장바구니에 담겼습니다.');
 }
 
-/** 8. 장바구니에서 상품 제거 (Unique ID 기반) */
+/** 장바구니에서 상품 제거 (Unique ID 기반) */
 function removeFromCart(uniqueItemId) {
-    // uniqueId가 일치하지 않는 항목들만 필터링하여 남깁니다.
     cart = cart.filter(item => item.uniqueId !== uniqueItemId); 
     
     updateLocalStorage();
@@ -212,8 +554,10 @@ function removeFromCart(uniqueItemId) {
     renderCartModal();
 }
 
-/** 9. 장바구니 모달 내용 렌더링 */
+/** 장바구니 모달 내용 렌더링 */
 function renderCartModal() {
+    if (!cartItemsContainer || !cartTotalElement) return;
+
     cartItemsContainer.innerHTML = '';
     let total = 0;
 
@@ -224,26 +568,22 @@ function renderCartModal() {
             const itemTotal = item.price * item.quantity;
             total += itemTotal;
             
-            // 선택된 옵션 표시 (null일 경우 표시하지 않음)
             let optionsText = '';
-            if (item.color) optionsText += `색상: ${item.color}`;
-            if (item.size) optionsText += (optionsText ? ' / ' : '') + `사이즈: ${item.size}`;
-            
-            // 옵션이 없는 상품도 대비하여 최종 검토
-            if (!optionsText && (item.color || item.size)) {
-                optionsText = `옵션 없음`;
-            }
+            const colorDisplay = item.color && item.color !== 'NoColor' ? `색상: ${item.color}` : '';
+            const sizeDisplay = item.size && item.size !== 'NoSize' ? `사이즈: ${item.size}` : '';
+
+            if (colorDisplay) optionsText += colorDisplay;
+            if (sizeDisplay) optionsText += (optionsText ? ' / ' : '') + sizeDisplay;
             
             const cartItemEl = document.createElement('div');
             cartItemEl.classList.add('cart-item');
             cartItemEl.innerHTML = `
                 <div class="cart-item-details">
                     <p class="cart-item-name">${item.name}</p>
-                    <p class="cart-item-options">${optionsText}</p>
+                    <p class="cart-item-options">${optionsText || '옵션 없음'}</p>
                 </div>
                 <div class="cart-item-price-actions">
                     <p>${item.price.toLocaleString()}원 x ${item.quantity}</p>
-                    <p>합계: ${itemTotal.toLocaleString()}원</p>
                     <button class="remove-btn" data-unique-id="${item.uniqueId}">삭제</button>
                 </div>
             `;
@@ -253,7 +593,6 @@ function renderCartModal() {
     
     cartTotalElement.textContent = total.toLocaleString('ko-KR');
     
-    // 삭제 버튼 이벤트 리스너 재부착 (uniqueId 사용)
     document.querySelectorAll('.remove-btn').forEach(button => {
         button.addEventListener('click', function() {
             const uniqueIdToRemove = this.getAttribute('data-unique-id');
@@ -262,43 +601,36 @@ function renderCartModal() {
     });
 }
 
-/** 10. 상품 상세 모달 표시 (옵션 선택 필드 포함) */
+/** 상품 상세 모달 표시 (수량, 옵션 처리 포함) */
 function showProductDetail(productId) {
     const product = products.find(p => p.id === productId);
 
-    if (!product) {
-        alert('상품을 찾을 수 없습니다.');
-        return;
-    }
+    if (!product || !productDetailInfo) return;
 
-    // 옵션 선택 필드 생성 로직
+    // 옵션 선택 필드 생성
     let optionsHtml = '';
     
     // 1. 색상 옵션
-    if (product.options && product.options.colors) {
+    if (product.options && product.options.colors && product.options.colors.length > 0) {
         optionsHtml += `
             <div class="option-group">
                 <label for="color-select">색상 선택:</label>
                 <select id="color-select" required>
                     <option value="" disabled selected>-- 색상 선택 --</option>
-                    ${product.options.colors.map(color => 
-                        `<option value="${color}">${color}</option>`
-                    ).join('')}
+                    ${product.options.colors.map(color => `<option value="${color}">${color}</option>`).join('')}
                 </select>
             </div>
         `;
     }
 
     // 2. 사이즈 옵션
-    if (product.options && product.options.sizes) {
+    if (product.options && product.options.sizes && product.options.sizes.length > 0) {
         optionsHtml += `
             <div class="option-group">
                 <label for="size-select">사이즈 선택:</label>
                 <select id="size-select" required>
                     <option value="" disabled selected>-- 사이즈 선택 --</option>
-                    ${product.options.sizes.map(size => 
-                        `<option value="${size}">${size}</option>`
-                    ).join('')}
+                    ${product.options.sizes.map(size => `<option value="${size}">${size}</option>`).join('')}
                 </select>
             </div>
         `;
@@ -314,6 +646,11 @@ function showProductDetail(productId) {
                 <p class="detail-price">${product.price.toLocaleString('ko-KR')}원</p>
 
                 ${optionsHtml} 
+                
+                <div class="option-group">
+                    <label for="detail-quantity">수량:</label>
+                    <input type="number" id="detail-quantity" value="1" min="1" max="99" style="width: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;">
+                </div>
                 
                 <div class="detail-description-box">
                     <h4>📝 상품 설명</h4>
@@ -336,140 +673,42 @@ function showProductDetail(productId) {
     detailAddToCartBtn.addEventListener('click', () => {
         const colorSelect = document.getElementById('color-select');
         const sizeSelect = document.getElementById('size-select');
+        const quantityInput = document.getElementById('detail-quantity');
         
         const selectedColor = colorSelect ? colorSelect.value : null;
         const selectedSize = sizeSelect ? sizeSelect.value : null;
+        const quantity = parseInt(quantityInput.value, 10) || 1; 
         
-        // 옵션 선택 필수 검증
-        if (product.options && product.options.colors && (!selectedColor || selectedColor === '')) {
+        // 옵션 및 수량 필수 검증
+        const requiresColor = product.options && product.options.colors && product.options.colors.length > 0;
+        const requiresSize = product.options && product.options.sizes && product.options.sizes.length > 0;
+
+        if (requiresColor && (!selectedColor || selectedColor === '')) {
             alert('색상을 선택해주세요.');
             return;
         }
-        if (product.options && product.options.sizes && (!selectedSize || selectedSize === '')) {
+        if (requiresSize && (!selectedSize || selectedSize === '')) {
             alert('사이즈를 선택해주세요.');
             return;
         }
+        if (quantity < 1) {
+            alert('수량은 1개 이상이어야 합니다.');
+            return;
+        }
 
-        // 옵션을 포함하여 addToCart 함수 호출
-        addToCart(product.id, selectedColor, selectedSize); 
-        productDetailModal.style.display = 'none';
+        addToCart(product.id, selectedColor, selectedSize, quantity); 
+        if (productDetailModal) productDetailModal.style.display = 'none';
     });
 
-    productDetailModal.style.display = 'block';
+    if (productDetailModal) productDetailModal.style.display = 'block';
 }
+// ===========================================
+// 3. 이벤트 리스너 및 초기화
+// ===========================================
 
-
-// --- 이벤트 리스너 ---
-
-// 로그인/로그아웃 버튼 클릭
-loginButton.addEventListener('click', () => {
-    if (isLoggedIn) {
-        handleLogout();
-    } else {
-        loginModal.style.display = 'block';
-    }
-});
-
-// 로그인 폼 제출
-loginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const username = usernameInput.value.trim() || '회원'; 
-
-    isLoggedIn = true;
-    localStorage.setItem('isLoggedIn', JSON.stringify(true));
-    localStorage.setItem('loggedInUser', username);
-
-    checkLoginStatus(); 
-    
-    alert(`${username}님, 환영합니다! (로그인 성공)`);
-    loginModal.style.display = 'none';
-    loginForm.reset();
-});
-
-
-// 메인 로고 클릭
-mainLogo.addEventListener('click', (e) => {
-    e.preventDefault();
-    document.querySelectorAll('.nav-link').forEach(btn => btn.classList.remove('active'));
-    document.querySelector('.nav-link[data-category="all"]').classList.add('active');
-    
-    heroSection.style.display = 'flex';
-    renderProducts('all');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-
-// 카테고리 클릭
-function handleCategoryClick(e) {
-    e.preventDefault();
-    
-    document.querySelectorAll('.nav-link').forEach(btn => btn.classList.remove('active'));
-    this.classList.add('active');
-
-    const category = this.getAttribute('data-category');
-    
-    if (category === 'all') {
-        heroSection.style.display = 'flex';
-    } else {
-        heroSection.style.display = 'none';
-    }
-
-    renderProducts(category || 'all');
-}
-navLinks.forEach(link => {
-    link.addEventListener('click', handleCategoryClick);
-});
-
-// 스크롤 이벤트 (헤더 고정 및 색상 변경)
-function handleScrollHeader() {
-    if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-    } else {
-        header.classList.remove('scrolled');
-    }
-}
-window.addEventListener('scroll', handleScrollHeader);
-
-// 장바구니 열기
-cartButton.addEventListener('click', () => {
-    renderCartModal();
-    cartModal.style.display = 'block'; 
-});
-
-// 모달 닫기 버튼들 및 외부 클릭 이벤트
-cartCloseButton.addEventListener('click', () => { cartModal.style.display = 'none'; });
-document.querySelector('.login-close').addEventListener('click', () => { loginModal.style.display = 'none'; });
-couponCheckButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    couponModal.style.display = 'block';
-});
-document.querySelector('.coupon-close').addEventListener('click', () => { couponModal.style.display = 'none'; });
-detailCloseButton.addEventListener('click', () => { productDetailModal.style.display = 'none'; });
-
-// 모달 외부 클릭 시 닫기
-window.addEventListener('click', (e) => {
-    if (e.target === cartModal) { cartModal.style.display = 'none'; } 
-    else if (e.target === loginModal) { loginModal.style.display = 'none'; } 
-    else if (e.target === couponModal) { couponModal.style.display = 'none'; } 
-    else if (e.target === productDetailModal) { productDetailModal.style.display = 'none'; }
-});
-
-
-// 11. 페이지 로드 시 초기 실행
-document.addEventListener('DOMContentLoaded', () => {
-    checkLoginStatus(); 
-    heroSection.style.display = 'flex'; 
-    renderProducts('all');
-    handleScrollHeader();
-    updateCartDisplay();
-});
-
-// ** ======================================================= **
-// ** ✨ 회원가입 기능 추가: 폼 전환 로직 **
-// ** ======================================================= **
-
-/** 로그인 폼 표시 */
+// 로그인/회원가입 폼 전환 로직
 function showLoginForm() {
+    if (!modalTitle || !loginForm || !signupForm || !switchToSignupLink || !switchToLoginLink) return;
     modalTitle.textContent = '👤 로그인';
     loginForm.style.display = 'block';
     signupForm.style.display = 'none';
@@ -477,8 +716,8 @@ function showLoginForm() {
     switchToLoginLink.style.display = 'none';
 }
 
-/** 회원가입 폼 표시 */
 function showSignupForm() {
+    if (!modalTitle || !loginForm || !signupForm || !switchToSignupLink || !switchToLoginLink) return;
     modalTitle.textContent = '✨ 회원가입';
     loginForm.style.display = 'none';
     signupForm.style.display = 'block';
@@ -486,64 +725,192 @@ function showSignupForm() {
     switchToLoginLink.style.display = 'block';
 }
 
-// --- 이벤트 리스너 ---
-
-// 로그인/로그아웃 버튼 클릭
-loginButton.addEventListener('click', () => {
-    if (isLoggedIn) {
-        handleLogout();
+/** 스크롤 이벤트 (헤더 고정 및 색상 변경) */
+function handleScrollHeader() {
+    if (!header) return;
+    if (window.scrollY > 50) {
+        header.classList.add('scrolled');
     } else {
-        showLoginForm(); // 로그인 모달을 열 때 로그인 폼을 먼저 보여줍니다.
-        loginModal.style.display = 'block';
+        header.classList.remove('scrolled');
     }
-});
+}
 
-// 로그인 폼 제출
-loginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const username = usernameInput.value.trim() || '회원'; 
-
-    isLoggedIn = true;
-    localStorage.setItem('isLoggedIn', JSON.stringify(true));
-    localStorage.setItem('loggedInUser', username);
-
+document.addEventListener('DOMContentLoaded', () => {
     checkLoginStatus(); 
+    if (heroSection) heroSection.style.display = 'flex'; 
+    renderProducts('all');
+    handleScrollHeader();
+    updateCartDisplay();
     
-    alert(`${username}님, 환영합니다! (로그인 성공)`);
-    loginModal.style.display = 'none';
-    loginForm.reset();
-});
+    // ⭐ 쿠폰 렌더링 함수 호출
+    renderAvailableCoupons();
+    renderOwnedCoupons();
 
-// ✨ 회원가입 폼 전환 이벤트
-switchToSignupLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    showSignupForm();
-});
-
-// ✨ 로그인 폼 전환 이벤트
-switchToLoginLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    showLoginForm();
-});
-
-// ✨ 회원가입 폼 제출 이벤트
-signupForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const newUsername = document.getElementById('signup-username').value.trim();
-    const newPassword = document.getElementById('signup-password').value;
-    const confirmPassword = document.getElementById('signup-password-confirm').value;
-
-    if (newPassword !== confirmPassword) {
-        alert('비밀번호가 일치하지 않습니다.');
-        return;
+    
+    // --- 3.1. 로그인/로그아웃/회원가입 이벤트 ---
+    if (loginButton) {
+        loginButton.addEventListener('click', () => {
+            if (isLoggedIn) {
+                handleLogout();
+            } else {
+                showLoginForm();
+                if (loginModal) loginModal.style.display = 'block';
+            }
+        });
     }
 
-    // 모의 회원가입 완료
-    alert(`🎉 ${newUsername}님, 회원가입이 완료되었습니다! 로그인해 주세요.`);
+    if (loginForm && usernameInput) {
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = usernameInput.value.trim() || '회원'; 
+            isLoggedIn = true;
+            localStorage.setItem('isLoggedIn', JSON.stringify(true));
+            localStorage.setItem('loggedInUser', username);
+            checkLoginStatus(); 
+            alert(`${username}님, 환영합니다! (로그인 성공)`);
+            if (loginModal) loginModal.style.display = 'none';
+            loginForm.reset();
+        });
+    }
+
+    if (switchToSignupLink) switchToSignupLink.addEventListener('click', (e) => { e.preventDefault(); showSignupForm(); });
+    if (switchToLoginLink) switchToLoginLink.addEventListener('click', (e) => { e.preventDefault(); showLoginForm(); });
     
-    // 가입 후 로그인 폼으로 전환 및 아이디 자동 입력
-    showLoginForm(); 
-    signupForm.reset();
-    document.getElementById('username').value = newUsername; 
+    if (signupForm) {
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newPassword = document.getElementById('signup-password').value;
+            const confirmPassword = document.getElementById('signup-password-confirm').value;
+
+            if (newPassword !== confirmPassword) {
+                alert('비밀번호가 일치하지 않습니다.');
+                return;
+            }
+            alert(`🎉 회원가입이 완료되었습니다! 로그인해 주세요.`);
+            showLoginForm(); 
+            signupForm.reset();
+        });
+    }
+    
+    // --- 3.2. 카테고리/로고/스크롤 이벤트 ---
+    if (mainLogo && heroSection) {
+        mainLogo.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.querySelectorAll('.nav-link').forEach(btn => btn.classList.remove('active'));
+            const allLink = document.querySelector('.nav-link[data-category="all"]');
+            if(allLink) allLink.classList.add('active');
+            heroSection.style.display = 'flex';
+            renderProducts('all'); 
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    function handleCategoryClick(e) {
+        e.preventDefault();
+        document.querySelectorAll('.nav-link').forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+        const category = this.getAttribute('data-category');
+        if (heroSection) heroSection.style.display = category === 'all' ? 'flex' : 'none';
+        renderProducts(category || 'all'); 
+    }
+    navLinks.forEach(link => { link.addEventListener('click', handleCategoryClick); });
+
+    window.addEventListener('scroll', handleScrollHeader);
+    
+    // --- 3.3. 장바구니 및 모달 제어 이벤트 ---
+    if (cartButton) {
+        cartButton.addEventListener('click', () => {
+            renderCartModal();
+            if (cartModal) cartModal.style.display = 'block'; 
+        });
+    }
+
+    // X 버튼 클릭 시 닫기 (공통)
+    document.querySelectorAll('.close-btn').forEach(button => {
+        button.onclick = function() {
+            const modalElement = this.closest('.modal'); 
+            if (modalElement) modalElement.style.display = 'none';
+        }
+    });
+    
+    // ⭐ 이벤트 쿠폰 버튼 클릭 이벤트
+    if (couponCheckButton) {
+        couponCheckButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            renderAvailableCoupons(); // 모달 열기 전에 최신 목록 렌더링
+            renderOwnedCoupons();
+            if (couponModal) couponModal.style.display = 'block';
+        });
+    }
+
+    // 모달 외부 클릭 시 닫기 (공통)
+    window.addEventListener('click', (e) => {
+        if (e.target.classList.contains('modal')) {
+            e.target.style.display = 'none';
+        }
+    });
+
+    // --- 3.4. 결제 분기 로직 ---
+    if (guestCheckoutBtn) {
+        guestCheckoutBtn.addEventListener('click', (e) => {
+            e.preventDefault(); 
+            if (cart.length === 0) {
+                alert('장바구니에 담긴 상품이 없습니다.');
+                return;
+            }
+            if (cartModal) cartModal.style.display = 'none';
+            if (paymentModal) paymentModal.style.display = 'block';
+        });
+    }
+
+    if (loginCheckoutBtn) {
+        loginCheckoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            if (cart.length === 0) {
+                alert('장바구니에 담긴 상품이 없습니다.');
+                return;
+            }
+            
+            if (isLoggedIn) {
+                if (cartModal) cartModal.style.display = 'none';
+                if (paymentModal) paymentModal.style.display = 'block';
+            } else {
+                alert('회원 혜택(쿠폰, 포인트 적립 등)을 위해 로그인 후 이용해 주세요.'); 
+                if (loginModal) {
+                    showLoginForm();
+                    loginModal.style.display = 'block';
+                }
+            }
+        });
+    }
+    
+    // 최종 결제 (배송 정보 입력) 로직
+    if (deliveryForm) {
+        deliveryForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const requiredFields = ['input-name', 'input-phone', 'input-address1'];
+            let allFilled = true;
+            requiredFields.forEach(id => {
+                const input = document.getElementById(id);
+                if (!input || !input.value.trim()) allFilled = false;
+            });
+
+            if (allFilled) {
+                if (paymentModal) paymentModal.style.display = 'none';
+                
+                alert('✅ 결제가 성공적으로 완료되었습니다. 감사합니다!');
+
+                // 장바구니 초기화
+                cart = [];
+                updateLocalStorage();
+                updateCartDisplay();
+                
+                deliveryForm.reset();
+            } else {
+                alert('⚠️ 필수 입력 항목(이름, 전화번호, 주소)을 모두 입력해 주세요.');
+            }
+        });
+    }
 });

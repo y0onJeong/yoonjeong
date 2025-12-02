@@ -9,12 +9,13 @@
 <body>
     <header id="main-header">
         <div class="header-container">
-            <h1>.ZIP</h1> <nav>
+            <h1>.ZIP</h1> 
+            <nav>
                 <a href="#" class="nav-link active" data-category="all">BEST</a>
                 <a href="#" class="nav-link" data-category="outer">아우터</a>
                 <a href="#" class="nav-link" data-category="top">상의</a>
                 <a href="#" class="nav-link" data-category="bottom">하의</a>
-                <a href="#" class="nav-link">ACC</a>
+                <a href="#" class="nav-link" data-category="acc">ACC</a>
             </nav>
             
             <div class="header-actions">
@@ -33,7 +34,10 @@
             <div id="cart-items"></div>
             <div class="cart-summary">
                 <p>총 상품 금액: <span id="cart-total">0</span>원</p>
-                <button id="checkout-btn">결제하기</button>
+                <div class="checkout-actions">
+                <button id="login-checkout-btn" class="modal-action-btn primary">결제하기</button>
+                <button id="guest-checkout-btn" class="modal-action-btn secondary">비회원 결제하기</button>
+            </div>
             </div>
         </div>
     </div>
@@ -68,16 +72,15 @@
         <div class="modal-content">
             <span class="close-btn coupon-close" aria-label="닫기">&times;</span>
             <h2>🎟️ 쿠폰 및 이벤트</h2>
+            
             <div id="coupon-list">
-                <div class="coupon-item">
-                    <h4>🎉 웰컴 쿠폰 10% 할인</h4>
-                    <p>신규 회원 가입 시 즉시 발급! (최대 5,000원)</p>
                 </div>
-                <div class="coupon-item">
-                    <h4>🎁 아우터 5만원 이상 구매 시 5,000원 할인</h4>
-                    <p>아우터 카테고리 상품에 한해 사용 가능</p>
+            
+            <h3 id="owned-coupon-title" style="margin-top: 30px; border-top: 1px solid #ddd; padding-top: 20px;">
+                나의 쿠폰함 (<span id="owned-coupon-count">0</span>)
+            </h3>
+            <div id="owned-coupon-list">
                 </div>
-            </div>
         </div>
     </div>
     
@@ -86,7 +89,7 @@
             <span class="close-btn detail-close" aria-label="닫기">&times;</span>
             <h2>상품 상세 정보</h2>
             <div id="product-detail-info">
-                </div>
+            </div>
         </div>
     </div>
 
@@ -105,10 +108,44 @@
         <section id="product-list-container">
             <h3 class="section-title">✨ MD's PICK ITEMS</h3>
             <div id="product-list" class="grid-container"></div>
-        </section>
-        
+        </section>   
     </main>
 
+    <div id="payment-modal" class="modal">
+    <div class="modal-content small-modal"> <span class="close-btn">&times;</span>
+        
+        <h2 class="modal-title" id="payment-modal-title">📦 배송 정보 입력</h2> 
+
+        <form id="delivery-form">
+            <div class="form-group">
+                <label for="input-name">수령인</label>
+                <input type="text" id="input-name" required placeholder="수령인 이름">
+            </div>
+            <div class="form-group">
+                <label for="input-phone">연락처</label>
+                <input type="tel" id="input-phone" required placeholder="010-1234-5678">
+            </div>
+            <div class="form-group">
+                <label for="input-zipcode">우편번호</label>
+                <input type="text" id="input-zipcode" placeholder="우편번호">
+            </div>
+            <div class="form-group">
+                <label for="input-address1">기본 주소</label>
+                <input type="text" id="input-address1" required placeholder="기본 주소">
+            </div>
+            <div class="form-group">
+                <label for="input-address2">상세 주소</label>
+                <input type="text" id="input-address2" placeholder="아파트 동/호수 또는 상세 주소">
+            </div>
+            <div class="form-group">
+                <label for="input-memo">배송 요청 사항 (선택)</label>
+                <input type="text" id="input-memo" placeholder="예: 문 앞에 놓아주세요.">
+            </div>
+            <button type="submit" class="large-btn primary-btn">결제하기</button>
+        </form>
+    </div>
+</div>
+    
     <footer>
         <p>&copy; 2025 .ZIP . All rights reserved.</p>
     </footer>
