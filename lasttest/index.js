@@ -7,7 +7,7 @@ const products = [
         name: "시그니처 울 코트", 
         category: "outer", 
         price: 129000, 
-        image: "img/coat.jpg", 
+        image: "img/coat.png", 
         description: "고급 울 90% 혼방 소재를 사용하여 보온성이 뛰어난 시그니처 롱 코트입니다.", 
         details: "색상: 블랙, 네이비 | 사이즈: S, M, L | 소재: 울 90%, 나일론 10%",
         options: {
@@ -56,12 +56,12 @@ const products = [
     },
     { 
         id: 105, 
-        name: "베이직 무지 티셔츠", 
+        name: "베이직 무지 반팔 티셔츠", 
         category: "top", 
         price: 19000, 
         image: "img/mz.jpg", 
-        description: "매일 입기 좋은 기본 중의 기본 무지 티셔츠입니다.", 
-        details: "색상: 5가지 | 사이즈: S, M, L, XL | 소재: 면 100%", 
+        description: "매일 입기 좋은 기본 중의 기본 무지 반팔 티셔츠입니다.", 
+        details: "색상: 화이트, 블랙 | 사이즈: FREE | 소재: 면 100%", 
         options: { 
             colors: ["화이트", "블랙"], 
             sizes: ["FREE"] 
@@ -72,7 +72,7 @@ const products = [
         name: "데일리 로고 볼캡", 
         category: "acc", 
         price: 25000, 
-        image: "img/cap.jpg", 
+        image: "img/cap.png", 
         description: "면 100% 소재의 클래식 볼캡입니다. 미니멀한 로고 자수로 포인트를 주었습니다.", 
         details: "색상: 블랙, 화이트, 베이지 | 사이즈: Free | 소재: 면 100%",
         options: {
@@ -107,6 +107,22 @@ const products = [
         } 
     },
 
+    { 
+        id : 203, 
+        name: "프리미엄 구스 다운 패딩", 
+        category: "outer", 
+        price: 120000, 
+        image: "img/goose_padding.png", 
+        description: "최상급 구스 다운 충전재를 사용하여 극한의 추위에도 따뜻함을 유지해주는 프리미엄 롱 패딩입니다. 생활 방수 기능 탑재.", 
+        details: "색상: 블랙 | 사이즈: FREE | 소재: 겉감-나일론 100%, 충전재-구스 다운 80%, 깃털 20%", 
+        options: { 
+            colors: ["블랙"], 
+            sizes: ["FREE"] 
+        } 
+    },
+
+    
+
     // 상의 (3개)
     { 
         id: 301, 
@@ -128,7 +144,7 @@ const products = [
         price: 68000, 
         image: "img/knit.jpg", 
         description: "부드러운 캐시미어 혼방으로 고급스러운 촉감을 자랑합니다.", 
-        details: "색상: 아이보리, 민트, 브라운 | 사이즈: Free | 소재: 캐시미어, 울 혼방", 
+        details: "색상: 아이보리, 블루, 브라운 | 사이즈: Free | 소재: 캐시미어, 울 혼방", 
         options: { 
             colors: ["아이보리", "블루", "브라운"], 
             sizes: ["Free"] 
@@ -136,15 +152,15 @@ const products = [
     },
     { 
         id: 303, 
-        name: "기본 긴팔 티셔츠", 
+        name: "베이직 긴팔 티셔츠", 
         category: "top", 
         price: 22000, 
         image: "img/longsleeve.jpg", 
         description: "다양한 색상으로 준비된 활용도 높은 기본 긴팔 티셔츠.", 
-        details: "색상: 5가지 | 사이즈: S, M, L | 소재: 면 100%", 
+        details: "색상: 블랙, 화이트 | 사이즈: FREE | 소재: 면 100%", 
         options: { 
-            colors: ["블랙", "화이트", "베이지"], 
-            sizes: ["S", "M", "L"] 
+            colors: ["블랙", "화이트"], 
+            sizes: ["FREE"] 
         } 
     },
 
@@ -164,7 +180,7 @@ const products = [
     },
     { 
         id: 402, 
-        name: "빈티지 일자 청바지", 
+        name: "빈티지 핀턱 청바지", 
         category: "bottom", 
         price: 65000, 
         image: "img/jeans.jpg", 
@@ -221,11 +237,11 @@ const products = [
         name: "울 머플러", 
         category: "acc", 
         price: 42000, 
-        image: "img/muffler.jpg", 
+        image: "img/muffler.png", 
         description: "겨울철 필수 아이템. 부드러운 촉감의 울 혼방 머플러.", 
         details: "색상: 레드, 그린, 베이지 | 소재: 울 혼방", 
         options: { 
-            colors: ["레드", "그린", "베이지"], 
+            colors: ["레드", "그린", "베이지", "화이트"], 
             sizes: ["Free"] 
         } 
     },
@@ -234,7 +250,7 @@ const products = [
         name: "데일리 양말 세트 (5켤레)", 
         category: "acc", 
         price: 15000, 
-        image: "img/socks.jpg", 
+        image: "img/socks.png", 
         description: "다양한 색상으로 구성된 면 소재의 데일리 양말 세트.", 
         details: "색상: 멀티 컬러 | 소재: 면, 폴리에스터", 
         options: { 
