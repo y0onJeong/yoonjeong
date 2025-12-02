@@ -260,10 +260,11 @@ const products = [
     }
 ];
 
+
 // 2. DOM 요소 및 상태 변수
 const productListSection = document.getElementById('product-list');
 const productListContainer = document.getElementById('product-list-container');
-const sectionTitle = productListContainer.querySelector('.section-title'); 
+const sectionTitle = productListContainer ? productListContainer.querySelector('.section-title') : null; 
 const navLinks = document.querySelectorAll('.nav-link[data-category]');
 const header = document.getElementById('main-header');
 const heroSection = document.getElementById('hero-section'); 
@@ -282,7 +283,6 @@ const usernameInput = document.getElementById('username');
 const switchToSignupLink = document.getElementById('switch-to-signup'); 
 const switchToLoginLink = document.getElementById('switch-to-login'); 
 
-
 const cartButton = document.getElementById('cart-button');
 const cartModal = document.getElementById('cart-modal'); 
 const cartCloseButton = document.querySelector('.cart-close');
@@ -296,11 +296,20 @@ const productDetailModal = document.getElementById('product-detail-modal');
 const detailCloseButton = document.querySelector('.detail-close');
 const productDetailInfo = document.getElementById('product-detail-info');
 
+// 결제 관련 요소
+const paymentModal = document.getElementById('payment-modal'); // 배송 정보 모달
+const deliveryForm = document.getElementById('delivery-form'); // 배송 정보 폼
+const loginCheckoutBtn = document.getElementById('login-checkout-btn'); // 결제하기 (로그인 필요)
+const guestCheckoutBtn = document.getElementById('guest-checkout-btn'); // 비회원 결제하기
 
-// --- 핵심 기능 함수 ---
 
-/** 1. 로그인 상태 확인 및 버튼 UI 업데이트 */
+// ===========================================
+// 2. 핵심 기능 함수
+// ===========================================
+
+/** 로그인 상태 확인 및 버튼 UI 업데이트 */
 function checkLoginStatus() {
+    if (!loginButton) return;
     if (isLoggedIn) {
         const username = localStorage.getItem('loggedInUser') || '회원';
         loginButton.innerHTML = `👋 ${username} (로그아웃)`;
@@ -311,17 +320,29 @@ function checkLoginStatus() {
     }
 }
 
-/** 2. 로그아웃 처리 */
+/** 로그아웃 처리 */
 function handleLogout() {
     isLoggedIn = false;
     localStorage.setItem('isLoggedIn', JSON.stringify(false));
     localStorage.removeItem('loggedInUser');
     checkLoginStatus(); 
-    loginModal.style.display = 'none';
+    if (loginModal) loginModal.style.display = 'none';
     alert('로그아웃되었습니다.');
 }
 
-/** 3. 상품 카드 생성 (UI 요소) */
+/** 장바구니 Local Storage 업데이트 */
+function updateLocalStorage() {
+    localStorage.setItem('cartItems', JSON.stringify(cart));
+}
+
+/** 장바구니 카운트 업데이트 */
+function updateCartDisplay() {
+    if (!cartCountElement) return;
+    const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+    cartCountElement.textContent = totalCount;
+}
+
+/** 상품 카드 생성 */
 function createProductCard(product) {
     const card = document.createElement('div');
     card.classList.add('product-card');
@@ -344,7 +365,7 @@ function createProductCard(product) {
         }
     });
 
-    // 카드 내 '장바구니 담기' 버튼 클릭 시 (옵션 유도)
+    // 카드 내 '장바구니 담기' 버튼 클릭 시
     const addToCartBtn = card.querySelector('.add-to-cart-btn');
     addToCartBtn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -352,22 +373,22 @@ function createProductCard(product) {
             alert('옵션(색상/사이즈) 선택을 위해 상세 페이지로 이동합니다.');
             showProductDetail(product.id);
         } else {
-            addToCart(product.id, null, null); 
+            addToCart(product.id, null, null, 1); 
         }
     });
 
     return card;
 }
 
-/** 4. 상품 목록 렌더링 (카테고리 필터링 및 제목 표시 제어) */
+/** 상품 목록 렌더링 */
 function renderProducts(filterCategory) {
+    if (!productListSection) return;
+
     productListSection.innerHTML = ''; 
     
-    // ⭐ BEST 카테고리일 때만 제목 표시 ⭐
-    if (filterCategory === 'all') {
-        sectionTitle.style.display = 'block';
-    } else {
-        sectionTitle.style.display = 'none';
+    // BEST 카테고리일 때만 제목 표시 제어
+    if (sectionTitle) {
+        sectionTitle.style.display = filterCategory === 'all' ? 'block' : 'none';
     }
 
     const filteredProducts = products.filter(product => 
@@ -380,35 +401,25 @@ function renderProducts(filterCategory) {
     });
 }
 
-/** 5. 장바구니 Local Storage 업데이트 */
-function updateLocalStorage() {
-    localStorage.setItem('cartItems', JSON.stringify(cart));
-}
 
-/** 6. 장바구니 카운트 업데이트 */
-function updateCartDisplay() {
-    const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
-    cartCountElement.textContent = totalCount;
-}
-
-/** 7. 장바구니에 상품 추가 (옵션 및 Unique ID 관리) */
-function addToCart(productId, selectedColor, selectedSize) {
+/** 장바구니에 상품 추가 (옵션, 수량 및 Unique ID 관리) */
+function addToCart(productId, selectedColor, selectedSize, quantity = 1) { 
     const productToAdd = products.find(p => p.id === productId);
     
-    // 장바구니 항목을 고유하게 식별할 ID (상품 ID + 선택 옵션)
+    // 고유 ID 생성 (상품 ID + 선택 옵션)
     const uniqueItemId = `${productId}-${selectedColor || 'NoColor'}-${selectedSize || 'NoSize'}`;
 
     const existingItem = cart.find(item => item.uniqueId === uniqueItemId);
 
     if (existingItem) {
-        existingItem.quantity += 1;
+        existingItem.quantity += quantity; 
     } else {
         cart.push({ 
             id: productToAdd.id, 
             uniqueId: uniqueItemId,
             name: productToAdd.name, 
             price: productToAdd.price, 
-            quantity: 1,
+            quantity: quantity, 
             color: selectedColor,
             size: selectedSize
         });
@@ -417,14 +428,14 @@ function addToCart(productId, selectedColor, selectedSize) {
     updateLocalStorage();
     updateCartDisplay();
     
-    let alertMessage = `${productToAdd.name}`;
+    let alertMessage = `${productToAdd.name} ${quantity}개`;
     if (selectedColor || selectedSize) {
         alertMessage += ` (색상: ${selectedColor || '없음'} / 사이즈: ${selectedSize || '없음'})`;
     }
-    alert(alertMessage + '이(가) 장바구니에 담겼습니다.');
+    alert(alertMessage + '가 장바구니에 담겼습니다.');
 }
 
-/** 8. 장바구니에서 상품 제거 (Unique ID 기반) */
+/** 장바구니에서 상품 제거 (Unique ID 기반) */
 function removeFromCart(uniqueItemId) {
     cart = cart.filter(item => item.uniqueId !== uniqueItemId); 
     
@@ -433,8 +444,10 @@ function removeFromCart(uniqueItemId) {
     renderCartModal();
 }
 
-/** 9. 장바구니 모달 내용 렌더링 */
+/** 장바구니 모달 내용 렌더링 */
 function renderCartModal() {
+    if (!cartItemsContainer || !cartTotalElement) return;
+
     cartItemsContainer.innerHTML = '';
     let total = 0;
 
@@ -478,14 +491,11 @@ function renderCartModal() {
     });
 }
 
-/** 10. 상품 상세 모달 표시 (옵션 선택 필드 생성 및 이벤트 처리) */
+/** 상품 상세 모달 표시 (수량, 옵션 처리 포함) */
 function showProductDetail(productId) {
     const product = products.find(p => p.id === productId);
 
-    if (!product) {
-        alert('상품을 찾을 수 없습니다.');
-        return;
-    }
+    if (!product || !productDetailInfo) return;
 
     // 옵션 선택 필드 생성
     let optionsHtml = '';
@@ -527,6 +537,11 @@ function showProductDetail(productId) {
 
                 ${optionsHtml} 
                 
+                <div class="option-group">
+                    <label for="detail-quantity">수량:</label>
+                    <input type="number" id="detail-quantity" value="1" min="1" max="99" style="width: 100px; padding: 10px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box;">
+                </div>
+                
                 <div class="detail-description-box">
                     <h4>📝 상품 설명</h4>
                     <p>${product.description}</p>
@@ -548,11 +563,13 @@ function showProductDetail(productId) {
     detailAddToCartBtn.addEventListener('click', () => {
         const colorSelect = document.getElementById('color-select');
         const sizeSelect = document.getElementById('size-select');
+        const quantityInput = document.getElementById('detail-quantity');
         
         const selectedColor = colorSelect ? colorSelect.value : null;
         const selectedSize = sizeSelect ? sizeSelect.value : null;
+        const quantity = parseInt(quantityInput.value, 10) || 1; 
         
-        // 옵션 선택 필수 검증
+        // 옵션 및 수량 필수 검증
         const requiresColor = product.options && product.options.colors && product.options.colors.length > 0;
         const requiresSize = product.options && product.options.sizes && product.options.sizes.length > 0;
 
@@ -564,19 +581,24 @@ function showProductDetail(productId) {
             alert('사이즈를 선택해주세요.');
             return;
         }
+        if (quantity < 1) {
+            alert('수량은 1개 이상이어야 합니다.');
+            return;
+        }
 
-        addToCart(product.id, selectedColor, selectedSize); 
-        productDetailModal.style.display = 'none';
+        addToCart(product.id, selectedColor, selectedSize, quantity); 
+        if (productDetailModal) productDetailModal.style.display = 'none';
     });
 
-    productDetailModal.style.display = 'block';
+    if (productDetailModal) productDetailModal.style.display = 'block';
 }
+// ===========================================
+// 3. 이벤트 리스너 및 초기화
+// ===========================================
 
-
-// --- 로그인/회원가입 폼 전환 로직 ---
-
-/** 로그인 폼 표시 */
+// 로그인/회원가입 폼 전환 로직
 function showLoginForm() {
+    if (!modalTitle || !loginForm || !signupForm || !switchToSignupLink || !switchToLoginLink) return;
     modalTitle.textContent = '👤 로그인';
     loginForm.style.display = 'block';
     signupForm.style.display = 'none';
@@ -584,8 +606,8 @@ function showLoginForm() {
     switchToLoginLink.style.display = 'none';
 }
 
-/** 회원가입 폼 표시 */
 function showSignupForm() {
+    if (!modalTitle || !loginForm || !signupForm || !switchToSignupLink || !switchToLoginLink) return;
     modalTitle.textContent = '✨ 회원가입';
     loginForm.style.display = 'none';
     signupForm.style.display = 'block';
@@ -593,138 +615,180 @@ function showSignupForm() {
     switchToLoginLink.style.display = 'block';
 }
 
-// --- 이벤트 리스너 통합 ---
-
-// 로그인/로그아웃 버튼 클릭
-loginButton.addEventListener('click', () => {
-    if (isLoggedIn) {
-        handleLogout();
-    } else {
-        showLoginForm();
-        loginModal.style.display = 'block';
-    }
-});
-
-// 로그인 폼 제출
-loginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const username = usernameInput.value.trim() || '회원'; 
-
-    isLoggedIn = true;
-    localStorage.setItem('isLoggedIn', JSON.stringify(true));
-    localStorage.setItem('loggedInUser', username);
-
-    checkLoginStatus(); 
-    
-    alert(`${username}님, 환영합니다! (로그인 성공)`);
-    loginModal.style.display = 'none';
-    loginForm.reset();
-});
-
-// 회원가입 폼 전환
-switchToSignupLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    showSignupForm();
-});
-
-// 로그인 폼 전환
-switchToLoginLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    showLoginForm();
-});
-
-// 회원가입 폼 제출 (모의 가입)
-signupForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const newPassword = document.getElementById('signup-password').value;
-    const confirmPassword = document.getElementById('signup-password-confirm').value;
-
-    if (newPassword !== confirmPassword) {
-        alert('비밀번호가 일치하지 않습니다.');
-        return;
-    }
-
-    alert(`🎉 회원가입이 완료되었습니다! 로그인해 주세요.`);
-    
-    showLoginForm(); 
-    signupForm.reset();
-});
-
-
-// 메인 로고 클릭 시 BEST 상태로 복귀
-mainLogo.addEventListener('click', (e) => {
-    e.preventDefault();
-    document.querySelectorAll('.nav-link').forEach(btn => btn.classList.remove('active'));
-    document.querySelector('.nav-link[data-category="all"]').classList.add('active');
-    
-    heroSection.style.display = 'flex';
-    renderProducts('all'); 
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
-
-
-// 카테고리 클릭 핸들러
-function handleCategoryClick(e) {
-    e.preventDefault();
-    
-    document.querySelectorAll('.nav-link').forEach(btn => btn.classList.remove('active'));
-    this.classList.add('active');
-
-    const category = this.getAttribute('data-category');
-    
-    if (category === 'all') {
-        heroSection.style.display = 'flex';
-    } else {
-        heroSection.style.display = 'none';
-    }
-
-    renderProducts(category || 'all'); 
-}
-navLinks.forEach(link => {
-    link.addEventListener('click', handleCategoryClick);
-});
-
-// 스크롤 이벤트 (헤더 고정 및 색상 변경)
-function handleScrollHeader() {
-    if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-    } else {
-        header.classList.remove('scrolled');
-    }
-}
-window.addEventListener('scroll', handleScrollHeader);
-
-// 장바구니 열기
-cartButton.addEventListener('click', () => {
-    renderCartModal();
-    cartModal.style.display = 'block'; 
-});
-
-// 모달 닫기 버튼들 및 외부 클릭 이벤트
-cartCloseButton.addEventListener('click', () => { cartModal.style.display = 'none'; });
-document.querySelector('.login-close').addEventListener('click', () => { loginModal.style.display = 'none'; });
-couponCheckButton.addEventListener('click', (e) => {
-    e.preventDefault();
-    couponModal.style.display = 'block';
-});
-document.querySelector('.coupon-close').addEventListener('click', () => { couponModal.style.display = 'none'; });
-detailCloseButton.addEventListener('click', () => { productDetailModal.style.display = 'none'; });
-
-// 모달 외부 클릭 시 닫기
-window.addEventListener('click', (e) => {
-    if (e.target === cartModal) { cartModal.style.display = 'none'; } 
-    else if (e.target === loginModal) { loginModal.style.display = 'none'; } 
-    else if (e.target === couponModal) { couponModal.style.display = 'none'; } 
-    else if (e.target === productDetailModal) { productDetailModal.style.display = 'none'; }
-});
-
-
-// 11. 페이지 로드 시 초기 실행
 document.addEventListener('DOMContentLoaded', () => {
     checkLoginStatus(); 
-    heroSection.style.display = 'flex'; 
+    if (heroSection) heroSection.style.display = 'flex'; 
     renderProducts('all');
     handleScrollHeader();
     updateCartDisplay();
+    
+    // --- 3.1. 로그인/로그아웃/회원가입 이벤트 ---
+    if (loginButton) {
+        loginButton.addEventListener('click', () => {
+            if (isLoggedIn) {
+                handleLogout();
+            } else {
+                showLoginForm();
+                if (loginModal) loginModal.style.display = 'block';
+            }
+        });
+    }
+
+    if (loginForm && usernameInput) {
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = usernameInput.value.trim() || '회원'; 
+            isLoggedIn = true;
+            localStorage.setItem('isLoggedIn', JSON.stringify(true));
+            localStorage.setItem('loggedInUser', username);
+            checkLoginStatus(); 
+            alert(`${username}님, 환영합니다! (로그인 성공)`);
+            if (loginModal) loginModal.style.display = 'none';
+            loginForm.reset();
+        });
+    }
+
+    if (switchToSignupLink) switchToSignupLink.addEventListener('click', (e) => { e.preventDefault(); showSignupForm(); });
+    if (switchToLoginLink) switchToLoginLink.addEventListener('click', (e) => { e.preventDefault(); showLoginForm(); });
+    
+    if (signupForm) {
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newPassword = document.getElementById('signup-password').value;
+            const confirmPassword = document.getElementById('signup-password-confirm').value;
+
+            if (newPassword !== confirmPassword) {
+                alert('비밀번호가 일치하지 않습니다.');
+                return;
+            }
+            alert(`🎉 회원가입이 완료되었습니다! 로그인해 주세요.`);
+            showLoginForm(); 
+            signupForm.reset();
+        });
+    }
+    
+    // --- 3.2. 카테고리/로고/스크롤 이벤트 ---
+    if (mainLogo && heroSection) {
+        mainLogo.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.querySelectorAll('.nav-link').forEach(btn => btn.classList.remove('active'));
+            const allLink = document.querySelector('.nav-link[data-category="all"]');
+            if(allLink) allLink.classList.add('active');
+            heroSection.style.display = 'flex';
+            renderProducts('all'); 
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+
+    function handleCategoryClick(e) {
+        e.preventDefault();
+        document.querySelectorAll('.nav-link').forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+        const category = this.getAttribute('data-category');
+        if (heroSection) heroSection.style.display = category === 'all' ? 'flex' : 'none';
+        renderProducts(category || 'all'); 
+    }
+    navLinks.forEach(link => { link.addEventListener('click', handleCategoryClick); });
+
+    function handleScrollHeader() {
+        if (!header) return;
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    }
+    window.addEventListener('scroll', handleScrollHeader);
+    
+    // --- 3.3. 장바구니 및 모달 제어 이벤트 ---
+    if (cartButton) {
+        cartButton.addEventListener('click', () => {
+            renderCartModal();
+            if (cartModal) cartModal.style.display = 'block'; 
+        });
+    }
+
+    // X 버튼 클릭 시 닫기
+    document.querySelectorAll('.close-btn').forEach(button => {
+        button.onclick = function() {
+            const modalElement = this.closest('.modal'); 
+            if (modalElement) modalElement.style.display = 'none';
+        }
+    });
+
+    // 모달 외부 클릭 시 닫기
+    window.addEventListener('click', (e) => {
+        if (e.target.classList.contains('modal')) {
+            e.target.style.display = 'none';
+        }
+    });
+
+    // --- 3.4. 결제 분기 로직 ---
+    
+    // 비회원 결제하기 버튼 클릭 -> 결제 팝업창(배송 정보 모달) 열기
+    if (guestCheckoutBtn) {
+        guestCheckoutBtn.addEventListener('click', (e) => {
+            e.preventDefault(); 
+            if (cart.length === 0) {
+                alert('장바구니에 담긴 상품이 없습니다.');
+                return;
+            }
+            if (cartModal) cartModal.style.display = 'none';
+            if (paymentModal) paymentModal.style.display = 'block';
+        });
+    }
+
+    // 결제하기 (로그인 필요) 버튼 클릭 -> 로그인 상태 검사
+    if (loginCheckoutBtn) {
+        loginCheckoutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            if (cart.length === 0) {
+                alert('장바구니에 담긴 상품이 없습니다.');
+                return;
+            }
+            
+            if (isLoggedIn) {
+                // 로그인 되어 있는 경우: 결제 모달 바로 열기
+                if (cartModal) cartModal.style.display = 'none';
+                if (paymentModal) paymentModal.style.display = 'block';
+            } else {
+                // 로그인 안 된 경우: 알림창 띄우기 및 로그인 유도
+                alert('회원 혜택(쿠폰, 포인트 적립 등)을 위해 로그인 후 이용해 주세요.'); 
+                if (loginModal) {
+                    showLoginForm();
+                    loginModal.style.display = 'block';
+                }
+            }
+        });
+    }
+    
+    // 최종 결제 (배송 정보 입력) 로직
+    if (deliveryForm) {
+        deliveryForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const requiredFields = ['input-name', 'input-phone', 'input-address1'];
+            let allFilled = true;
+            requiredFields.forEach(id => {
+                const input = document.getElementById(id);
+                if (!input || !input.value.trim()) allFilled = false;
+            });
+
+            if (allFilled) {
+                if (paymentModal) paymentModal.style.display = 'none';
+                
+                alert('✅ 결제가 성공적으로 완료되었습니다. 감사합니다!');
+
+                // 장바구니 초기화
+                cart = [];
+                updateLocalStorage();
+                updateCartDisplay();
+                
+                deliveryForm.reset();
+            } else {
+                alert('⚠️ 필수 입력 항목(이름, 전화번호, 주소)을 모두 입력해 주세요.');
+            }
+        });
+    }
 });
