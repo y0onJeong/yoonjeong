@@ -130,7 +130,7 @@ const products = [
         description: "부드러운 캐시미어 혼방으로 고급스러운 촉감을 자랑합니다.", 
         details: "색상: 아이보리, 민트, 브라운 | 사이즈: Free | 소재: 캐시미어, 울 혼방", 
         options: { 
-            colors: ["아이보리", "민트", "브라운"], 
+            colors: ["아이보리", "블루", "브라운"], 
             sizes: ["Free"] 
         } 
     },
