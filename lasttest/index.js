@@ -106,7 +106,6 @@ const products = [
             sizes: ["M", "L", "XL"] 
         } 
     },
-
     { 
         id : 203, 
         name: "프리미엄 구스 다운 패딩", 
@@ -120,10 +119,6 @@ const products = [
             sizes: ["FREE"] 
         } 
     },
-
-    
-
-    // 상의 (3개)
     { 
         id: 301, 
         name: "스트라이프 셔츠", 
@@ -163,8 +158,6 @@ const products = [
             sizes: ["FREE"] 
         } 
     },
-
-    // 하의 (3개)
     { 
         id: 401, 
         name: "슬랙스 밴딩 팬츠", 
@@ -204,8 +197,6 @@ const products = [
             sizes: ["Free"] 
         } 
     },
-
-    // ACC (4개)
     { 
         id: 501, 
         name: "심플 숄더백", 
@@ -290,7 +281,7 @@ const cartTotalElement = document.getElementById('cart-total');
 const cartCountElement = document.getElementById('cart-count');
 
 const couponModal = document.getElementById('coupon-modal');
-const couponCheckButton = document.getElementById('coupon-check-btn'); // ⭐ 이벤트 쿠폰 버튼
+const couponCheckButton = document.getElementById('coupon-check-btn'); 
 const productDetailModal = document.getElementById('product-detail-modal');
 const productDetailInfo = document.getElementById('product-detail-info');
 
@@ -592,7 +583,6 @@ function showProductDetail(productId) {
     if (productDetailModal) productDetailModal.style.display = 'block';
 }
 
-// 🚩 [추가] 랜덤 주문번호 생성 함수
 /** 랜덤하고 유니크한 주문번호 (Order ID)를 생성하는 함수 */
 function generateOrderId() {
     const now = new Date();
@@ -731,7 +721,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-    // ⭐ 이벤트 쿠폰 버튼 클릭 이벤트 (오류 해결) ⭐
+    // 이벤트 쿠폰 버튼 클릭 이벤트
     if (couponCheckButton) {
         couponCheckButton.addEventListener('click', (e) => {
             e.preventDefault();
@@ -787,7 +777,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // 🚩 [수정] 최종 결제 (배송 정보 입력) 로직 (주문번호 팝업 추가)
+    // 최종 결제 (배송 정보 입력) 로직
     if (deliveryForm) {
         deliveryForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -800,16 +790,21 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (allFilled) {
-                // 1. 주문 번호 생성 (비회원/회원 공통 사용 가능)
-                const orderId = generateOrderId();
-                const userName = document.getElementById('input-name').value.trim();
-
                 if (paymentModal) paymentModal.style.display = 'none';
                 
-                // 2. 요청하신 랜덤 주문번호 팝업창 표시
-                alert(`🎉 ${userName}님, 결제가 성공적으로 완료되었습니다!\n\n[주문 번호]: ${orderId}\n\n배송 정보가 정상적으로 접수되었습니다. 감사합니다!`);
+                const userName = document.getElementById('input-name').value.trim();
 
-                // 3. 장바구니 초기화
+                // ⭐ 로그인 상태에 따라 알림창 내용 변경 (주문번호 표시/미표시 분기)
+                if (isLoggedIn) {
+                    // 1. 로그인 상태인 경우: 주문번호 없이 일반적인 결제 완료 메시지 표시
+                    alert(`✅ ${userName}님, 결제가 성공적으로 완료되었습니다. 감사합니다!`);
+                } else {
+                    // 2. 비회원(로그아웃) 상태인 경우: 랜덤 주문번호를 생성하여 팝업창에 표시
+                    const orderId = generateOrderId();
+                    alert(`🎉 ${userName}님, 결제가 성공적으로 완료되었습니다!\n\n[주문 번호]: ${orderId}\n\n배송 정보가 정상적으로 접수되었습니다. 감사합니다!`);
+                }
+
+                // 장바구니 초기화 (공통)
                 cart = [];
                 updateLocalStorage();
                 updateCartDisplay();
