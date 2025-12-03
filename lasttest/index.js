@@ -1,6 +1,3 @@
-// index.js
-
-// 1. 상품 데이터 (핵심)
 const products = [
     { 
         id: 101, 
@@ -128,7 +125,7 @@ const products = [
         description: "깔끔한 디자인의 클래식 스트라이프 셔츠.", 
         details: "색상: 블루 스트라이프 | 사이즈: 95, 100, 105 | 소재: 면 100%", 
         options: { 
-            colors: ["블루"], 
+            colors: ["블루 스트라이프"], 
             sizes: ["95", "100", "105"] 
         } 
     },
@@ -180,7 +177,7 @@ const products = [
         description: "빈티지 워싱이 매력적인 레귤러 핏 일자 청바지.", 
         details: "색상: 빈티지 블루 | 사이즈: 28~34 | 소재: 데님", 
         options: { 
-            colors: ["블루"], 
+            colors: ["빈티지 블루"], 
             sizes: ["28", "30", "32", "34"] 
         } 
     },
@@ -230,7 +227,7 @@ const products = [
         price: 42000, 
         image: "img/muffler.png", 
         description: "겨울철 필수 아이템. 부드러운 촉감의 울 혼방 머플러.", 
-        details: "색상: 레드, 그린, 베이지 | 소재: 울 혼방", 
+        details: "색상: 레드, 그린, 베이지, 화이트 | 소재: 울 혼방", 
         options: { 
             colors: ["레드", "그린", "베이지", "화이트"], 
             sizes: ["Free"] 
@@ -251,8 +248,6 @@ const products = [
     }
 ];
 
-
-// 2. DOM 요소 및 상태 변수
 const productListSection = document.getElementById('product-list');
 const productListContainer = document.getElementById('product-list-container');
 const sectionTitle = productListContainer ? productListContainer.querySelector('.section-title') : null; 
@@ -262,7 +257,6 @@ const heroSection = document.getElementById('hero-section');
 const mainLogo = document.querySelector('#main-header h1'); 
 const modalTitle = document.getElementById('modal-title'); 
 
-// Local Storage에서 상태 로드
 let isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn')) || false;
 let cart = JSON.parse(localStorage.getItem('cartItems')) || []; 
 
@@ -285,18 +279,11 @@ const couponCheckButton = document.getElementById('coupon-check-btn');
 const productDetailModal = document.getElementById('product-detail-modal');
 const productDetailInfo = document.getElementById('product-detail-info');
 
-// 결제 관련 요소
 const paymentModal = document.getElementById('payment-modal'); 
 const deliveryForm = document.getElementById('delivery-form'); 
 const loginCheckoutBtn = document.getElementById('login-checkout-btn'); 
 const guestCheckoutBtn = document.getElementById('guest-checkout-btn'); 
 
-
-// ===========================================
-// 2. 핵심 기능 함수
-// ===========================================
-
-/** 로그인 상태 확인 및 버튼 UI 업데이트 */
 function checkLoginStatus() {
     if (!loginButton) return;
     if (isLoggedIn) {
@@ -309,7 +296,6 @@ function checkLoginStatus() {
     }
 }
 
-/** 로그아웃 처리 */
 function handleLogout() {
     isLoggedIn = false;
     localStorage.setItem('isLoggedIn', JSON.stringify(false));
@@ -319,19 +305,19 @@ function handleLogout() {
     alert('로그아웃되었습니다.');
 }
 
-/** 장바구니 Local Storage 업데이트 */
+
 function updateLocalStorage() {
     localStorage.setItem('cartItems', JSON.stringify(cart));
 }
 
-/** 장바구니 카운트 업데이트 */
+
 function updateCartDisplay() {
     if (!cartCountElement) return;
     const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
     cartCountElement.textContent = totalCount;
 }
 
-/** 상품 카드 생성 */
+
 function createProductCard(product) {
     const card = document.createElement('div');
     card.classList.add('product-card');
@@ -347,14 +333,14 @@ function createProductCard(product) {
         <button class="add-to-cart-btn" data-product-id="${product.id}">장바구니 담기</button>
     `;
 
-    // 상품 카드 클릭 시 상세 모달 열기
+    
     card.addEventListener('click', (e) => {
         if (!e.target.classList.contains('add-to-cart-btn')) {
             showProductDetail(product.id);
         }
     });
 
-    // 카드 내 '장바구니 담기' 버튼 클릭 시
+    
     const addToCartBtn = card.querySelector('.add-to-cart-btn');
     addToCartBtn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -369,13 +355,13 @@ function createProductCard(product) {
     return card;
 }
 
-/** 상품 목록 렌더링 */
+
 function renderProducts(filterCategory) {
     if (!productListSection) return;
 
     productListSection.innerHTML = ''; 
     
-    // BEST 카테고리일 때만 제목 표시 제어
+    
     if (sectionTitle) {
         sectionTitle.style.display = filterCategory === 'all' ? 'block' : 'none';
     }
@@ -390,13 +376,13 @@ function renderProducts(filterCategory) {
     });
 }
 
-/** 장바구니에 상품 추가 (옵션, 수량 및 Unique ID 관리) */
+
 function addToCart(productId, selectedColor, selectedSize, quantity = 1) { 
     const productToAdd = products.find(p => p.id === productId);
     
     if (!productToAdd) return;
 
-    // 고유 ID 생성 (상품 ID + 선택 옵션)
+    
     const uniqueItemId = `${productId}-${selectedColor || 'NoColor'}-${selectedSize || 'NoSize'}`;
 
     const existingItem = cart.find(item => item.uniqueId === uniqueItemId);
@@ -425,7 +411,7 @@ function addToCart(productId, selectedColor, selectedSize, quantity = 1) {
     alert(alertMessage + '가 장바구니에 담겼습니다.');
 }
 
-/** 장바구니에서 상품 제거 (Unique ID 기반) */
+
 function removeFromCart(uniqueItemId) {
     cart = cart.filter(item => item.uniqueId !== uniqueItemId); 
     
@@ -434,7 +420,7 @@ function removeFromCart(uniqueItemId) {
     renderCartModal();
 }
 
-/** 장바구니 모달 내용 렌더링 */
+
 function renderCartModal() {
     if (!cartItemsContainer || !cartTotalElement) return;
 
@@ -481,16 +467,16 @@ function renderCartModal() {
     });
 }
 
-/** 상품 상세 모달 표시 (수량, 옵션 처리 포함) */
+
 function showProductDetail(productId) {
     const product = products.find(p => p.id === productId);
 
     if (!product || !productDetailInfo) return;
 
-    // 옵션 선택 필드 생성
+    
     let optionsHtml = '';
     
-    // 1. 색상 옵션
+    
     if (product.options && product.options.colors && product.options.colors.length > 0) {
         optionsHtml += `
             <div class="option-group">
@@ -503,7 +489,7 @@ function showProductDetail(productId) {
         `;
     }
 
-    // 2. 사이즈 옵션
+    
     if (product.options && product.options.sizes && product.options.sizes.length > 0) {
         optionsHtml += `
             <div class="option-group">
@@ -548,7 +534,7 @@ function showProductDetail(productId) {
         </div>
     `;
 
-    // 상세 모달 내 '장바구니에 담기' 버튼 이벤트 리스너
+    
     const detailAddToCartBtn = productDetailInfo.querySelector('.add-to-cart-btn');
     detailAddToCartBtn.addEventListener('click', () => {
         const colorSelect = document.getElementById('color-select');
@@ -559,7 +545,7 @@ function showProductDetail(productId) {
         const selectedSize = sizeSelect ? sizeSelect.value : null;
         const quantity = parseInt(quantityInput.value, 10) || 1; 
         
-        // 옵션 및 수량 필수 검증
+        
         const requiresColor = product.options && product.options.colors && product.options.colors.length > 0;
         const requiresSize = product.options && product.options.sizes && product.options.sizes.length > 0;
 
@@ -583,23 +569,19 @@ function showProductDetail(productId) {
     if (productDetailModal) productDetailModal.style.display = 'block';
 }
 
-/** 랜덤하고 유니크한 주문번호 (Order ID)를 생성하는 함수 */
+
 function generateOrderId() {
     const now = new Date();
-    // YYMMDD 형식 (예: 251202)
+    
     const datePart = now.getFullYear().toString().substring(2) + 
                      (now.getMonth() + 1).toString().padStart(2, '0') + 
                      now.getDate().toString().padStart(2, '0');
-    // 8자리 랜덤 문자열 (예: ABCDEF12)
+    
     const randomPart = Math.random().toString(36).substring(2, 10).toUpperCase();
     
     return `ZIP-${datePart}-${randomPart}`;
 }
-// ===========================================
-// 3. 이벤트 리스너 및 초기화
-// ===========================================
 
-// 로그인/회원가입 폼 전환 로직
 function showLoginForm() {
     if (!modalTitle || !loginForm || !signupForm || !switchToSignupLink || !switchToLoginLink) return;
     modalTitle.textContent = '👤 로그인';
@@ -618,7 +600,7 @@ function showSignupForm() {
     switchToLoginLink.style.display = 'block';
 }
 
-/** 스크롤 이벤트 (헤더 고정 및 색상 변경) */
+
 function handleScrollHeader() {
     if (!header) return;
     if (window.scrollY > 50) {
@@ -635,7 +617,7 @@ document.addEventListener('DOMContentLoaded', () => {
     handleScrollHeader();
     updateCartDisplay();
     
-    // --- 3.1. 로그인/로그아웃/회원가입 이벤트 ---
+    
     if (loginButton) {
         loginButton.addEventListener('click', () => {
             if (isLoggedIn) {
@@ -680,7 +662,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // --- 3.2. 카테고리/로고/스크롤 이벤트 ---
+    
     if (mainLogo && heroSection) {
         mainLogo.addEventListener('click', (e) => {
             e.preventDefault();
@@ -705,7 +687,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('scroll', handleScrollHeader);
     
-    // --- 3.3. 장바구니 및 모달 제어 이벤트 ---
+    
     if (cartButton) {
         cartButton.addEventListener('click', () => {
             renderCartModal();
@@ -713,7 +695,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // X 버튼 클릭 시 닫기 (공통)
+    
     document.querySelectorAll('.close-btn').forEach(button => {
         button.onclick = function() {
             const modalElement = this.closest('.modal'); 
@@ -721,7 +703,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-    // 이벤트 쿠폰 버튼 클릭 이벤트
+    
     if (couponCheckButton) {
         couponCheckButton.addEventListener('click', (e) => {
             e.preventDefault();
@@ -729,17 +711,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 모달 외부 클릭 시 닫기 (공통)
+    
     window.addEventListener('click', (e) => {
-        // 클릭한 요소가 'modal' 클래스를 가지고 있는지 확인
+        
         if (e.target.classList.contains('modal')) {
             e.target.style.display = 'none';
         }
     });
 
-    // --- 3.4. 결제 분기 로직 ---
     
-    // 비회원 결제하기 버튼 클릭 -> 결제 팝업창(배송 정보 모달) 열기
     if (guestCheckoutBtn) {
         guestCheckoutBtn.addEventListener('click', (e) => {
             e.preventDefault(); 
@@ -752,7 +732,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 결제하기 (로그인 필요) 버튼 클릭 -> 로그인 상태 검사
+    
     if (loginCheckoutBtn) {
         loginCheckoutBtn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -763,11 +743,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             if (isLoggedIn) {
-                // 로그인 되어 있는 경우: 결제 모달 바로 열기
+                
                 if (cartModal) cartModal.style.display = 'none';
                 if (paymentModal) paymentModal.style.display = 'block';
             } else {
-                // 로그인 안 된 경우: 알림창 띄우기 및 로그인 유도
+                
                 alert('회원 혜택(쿠폰, 포인트 적립 등)을 위해 로그인 후 이용해 주세요.'); 
                 if (loginModal) {
                     showLoginForm();
@@ -777,7 +757,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
     
-    // 최종 결제 (배송 정보 입력) 로직
+    
     if (deliveryForm) {
         deliveryForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -794,17 +774,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 const userName = document.getElementById('input-name').value.trim();
 
-                // ⭐ 로그인 상태에 따라 알림창 내용 변경 (주문번호 표시/미표시 분기)
+                
                 if (isLoggedIn) {
-                    // 1. 로그인 상태인 경우: 주문번호 없이 일반적인 결제 완료 메시지 표시
+                    
                     alert(`✅ ${userName}님, 결제가 성공적으로 완료되었습니다. 감사합니다!`);
                 } else {
-                    // 2. 비회원(로그아웃) 상태인 경우: 랜덤 주문번호를 생성하여 팝업창에 표시
+                    
                     const orderId = generateOrderId();
                     alert(`🎉 ${userName}님, 결제가 성공적으로 완료되었습니다!\n\n[주문 번호]: ${orderId}\n\n배송 정보가 정상적으로 접수되었습니다. 감사합니다!`);
                 }
 
-                // 장바구니 초기화 (공통)
+                
                 cart = [];
                 updateLocalStorage();
                 updateCartDisplay();
