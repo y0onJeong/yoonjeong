@@ -243,9 +243,9 @@ const products = [
         price: 15000, 
         image: "img/socks.png", 
         description: "다양한 색상으로 구성된 면 소재의 데일리 양말 세트.", 
-        details: "색상: 멀티 컬러 | 소재: 면, 폴리에스터", 
+        details: "색상: 화이트 | 소재: 면, 폴리에스터", 
         options: { 
-            colors: ["멀티"], 
+            colors: ["화이트"], 
             sizes: ["Free"] 
         }
     }
@@ -280,13 +280,8 @@ const cartItemsContainer = document.getElementById('cart-items');
 const cartTotalElement = document.getElementById('cart-total');
 const cartCountElement = document.getElementById('cart-count');
 
-// [New] 쿠폰 관련 DOM 요소
 const couponModal = document.getElementById('coupon-modal');
 const couponCheckButton = document.getElementById('coupon-check-btn'); 
-const couponListContainer = document.getElementById('coupon-list'); // 다운로드 가능 목록
-const ownedCouponListContainer = document.getElementById('owned-coupon-list'); // 다운로드된 목록
-const ownedCouponCountElement = document.getElementById('owned-coupon-count'); // 쿠폰 개수 표시
-
 const productDetailModal = document.getElementById('product-detail-modal');
 const productDetailInfo = document.getElementById('product-detail-info');
 
@@ -298,122 +293,7 @@ const guestCheckoutBtn = document.getElementById('guest-checkout-btn');
 
 
 // ===========================================
-// [New] 쿠폰 데이터 및 로직
-// ===========================================
-
-/** 1. 쿠폰 데이터 정의 (다운로드 가능한 쿠폰) */
-const AVAILABLE_COUPONS = [
-    { id: 'C001', name: '🎉 웰컴 쿠폰 10% 할인', condition: '신규 회원 가입 시 즉시 발급! (최대 5,000원)' },
-    { id: 'C002', name: '🎁 아우터 5만원 이상 구매 시 5,000원 할인', condition: '아우터 카테고리 상품에 한해 사용 가능' },
-    { id: 'C003', name: '🌟 주말 한정 20% 특별 할인', condition: '토/일요일 전 상품 적용 (최대 10,000원)' }
-];
-
-/** 2. 사용자가 다운로드한 쿠폰 데이터 (Local Storage에서 로드) */
-let ownedCoupons = JSON.parse(localStorage.getItem('ownedCoupons')) || []; 
-
-function updateCouponLocalStorage() {
-    localStorage.setItem('ownedCoupons', JSON.stringify(ownedCoupons));
-}
-
-/** 3. 쿠폰을 다운로드하는 함수 */
-function downloadCoupon(couponId) {
-    const isAlreadyOwned = ownedCoupons.some(coupon => coupon.id === couponId);
-    if (isAlreadyOwned) {
-        alert('이미 다운로드하신 쿠폰입니다.');
-        return;
-    }
-
-    const couponToDownload = AVAILABLE_COUPONS.find(c => c.id === couponId);
-    if (couponToDownload) {
-        // 쿠폰함에 추가 (status를 'owned'로 가정)
-        ownedCoupons.push({ ...couponToDownload, status: 'owned' }); 
-        
-        updateCouponLocalStorage();
-        
-        // 화면 리렌더링 (두 목록 모두 업데이트)
-        renderAvailableCoupons();
-        renderOwnedCoupons();
-        
-        alert(`"${couponToDownload.name}" 쿠폰 다운로드가 완료되었습니다!`);
-    }
-}
-
-/** 4. 쿠폰 아이템을 렌더링하는 함수 (재사용) */
-function renderCouponItem(coupon, isOwned) {
-    const couponItem = document.createElement('div');
-    couponItem.className = 'coupon-item';
-    
-    const couponInfo = `<div class="coupon-info">
-        <h4>${coupon.name}</h4>
-        <p>${coupon.condition}</p>
-    </div>`;
-    
-    let actionButtonHTML = '';
-    
-    if (isOwned) {
-        // 나의 쿠폰함: 다운 완료 또는 사용 가능 상태 표시
-        actionButtonHTML = `<button class="coupon-action-btn owned-btn">사용 가능</button>`;
-    } else {
-        // 다운로드 가능 쿠폰: 다운로드 버튼 표시
-        const isDownloaded = ownedCoupons.some(c => c.id === coupon.id);
-        if (isDownloaded) {
-             actionButtonHTML = `<button class="coupon-action-btn owned-btn">다운 완료</button>`;
-        } else {
-             actionButtonHTML = `<button class="coupon-action-btn download-btn" data-coupon-id="${coupon.id}">다운받기</button>`;
-        }
-    }
-    
-    couponItem.innerHTML = couponInfo + actionButtonHTML;
-    return couponItem;
-}
-
-
-/** 5. 다운로드 가능 쿠폰 목록 렌더링 */
-function renderAvailableCoupons() {
-    if (!couponListContainer) return;
-    
-    couponListContainer.innerHTML = '<h3>다운로드 가능 쿠폰</h3>'; 
-
-    if (AVAILABLE_COUPONS.length === 0) {
-        couponListContainer.innerHTML += '<p class="no-coupon-message">현재 다운로드 가능한 쿠폰이 없습니다.</p>';
-        return;
-    }
-
-    AVAILABLE_COUPONS.forEach(coupon => {
-        const item = renderCouponItem(coupon, false);
-        couponListContainer.appendChild(item);
-    });
-
-    // 다운로드 버튼에 이벤트 리스너 추가
-    couponListContainer.querySelectorAll('.download-btn').forEach(button => {
-        button.addEventListener('click', (e) => {
-            const couponId = e.target.dataset.couponId;
-            downloadCoupon(couponId);
-        });
-    });
-}
-
-/** 6. 나의 쿠폰함 목록 렌더링 */
-function renderOwnedCoupons() {
-    if (!ownedCouponListContainer || !ownedCouponCountElement) return;
-
-    ownedCouponListContainer.innerHTML = ''; 
-    ownedCouponCountElement.textContent = ownedCoupons.length;
-
-    if (ownedCoupons.length === 0) {
-        ownedCouponListContainer.innerHTML = '<p class="no-coupon-message">다운로드된 쿠폰이 없습니다.</p>';
-        return;
-    }
-
-    ownedCoupons.forEach(coupon => {
-        const item = renderCouponItem(coupon, true);
-        ownedCouponListContainer.appendChild(item);
-    });
-}
-
-
-// ===========================================
-// 2. 핵심 기능 함수 (기존 코드)
+// 2. 핵심 기능 함수
 // ===========================================
 
 /** 로그인 상태 확인 및 버튼 UI 업데이트 */
@@ -702,6 +582,19 @@ function showProductDetail(productId) {
 
     if (productDetailModal) productDetailModal.style.display = 'block';
 }
+
+/** 랜덤하고 유니크한 주문번호 (Order ID)를 생성하는 함수 */
+function generateOrderId() {
+    const now = new Date();
+    // YYMMDD 형식 (예: 251202)
+    const datePart = now.getFullYear().toString().substring(2) + 
+                     (now.getMonth() + 1).toString().padStart(2, '0') + 
+                     now.getDate().toString().padStart(2, '0');
+    // 8자리 랜덤 문자열 (예: ABCDEF12)
+    const randomPart = Math.random().toString(36).substring(2, 10).toUpperCase();
+    
+    return `ZIP-${datePart}-${randomPart}`;
+}
 // ===========================================
 // 3. 이벤트 리스너 및 초기화
 // ===========================================
@@ -741,11 +634,6 @@ document.addEventListener('DOMContentLoaded', () => {
     renderProducts('all');
     handleScrollHeader();
     updateCartDisplay();
-    
-    // ⭐ 쿠폰 렌더링 함수 호출
-    renderAvailableCoupons();
-    renderOwnedCoupons();
-
     
     // --- 3.1. 로그인/로그아웃/회원가입 이벤트 ---
     if (loginButton) {
@@ -833,24 +721,25 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
     
-    // ⭐ 이벤트 쿠폰 버튼 클릭 이벤트
+    // 이벤트 쿠폰 버튼 클릭 이벤트
     if (couponCheckButton) {
         couponCheckButton.addEventListener('click', (e) => {
             e.preventDefault();
-            renderAvailableCoupons(); // 모달 열기 전에 최신 목록 렌더링
-            renderOwnedCoupons();
             if (couponModal) couponModal.style.display = 'block';
         });
     }
 
     // 모달 외부 클릭 시 닫기 (공통)
     window.addEventListener('click', (e) => {
+        // 클릭한 요소가 'modal' 클래스를 가지고 있는지 확인
         if (e.target.classList.contains('modal')) {
             e.target.style.display = 'none';
         }
     });
 
     // --- 3.4. 결제 분기 로직 ---
+    
+    // 비회원 결제하기 버튼 클릭 -> 결제 팝업창(배송 정보 모달) 열기
     if (guestCheckoutBtn) {
         guestCheckoutBtn.addEventListener('click', (e) => {
             e.preventDefault(); 
@@ -863,6 +752,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // 결제하기 (로그인 필요) 버튼 클릭 -> 로그인 상태 검사
     if (loginCheckoutBtn) {
         loginCheckoutBtn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -873,9 +763,11 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             
             if (isLoggedIn) {
+                // 로그인 되어 있는 경우: 결제 모달 바로 열기
                 if (cartModal) cartModal.style.display = 'none';
                 if (paymentModal) paymentModal.style.display = 'block';
             } else {
+                // 로그인 안 된 경우: 알림창 띄우기 및 로그인 유도
                 alert('회원 혜택(쿠폰, 포인트 적립 등)을 위해 로그인 후 이용해 주세요.'); 
                 if (loginModal) {
                     showLoginForm();
@@ -900,9 +792,19 @@ document.addEventListener('DOMContentLoaded', () => {
             if (allFilled) {
                 if (paymentModal) paymentModal.style.display = 'none';
                 
-                alert('✅ 결제가 성공적으로 완료되었습니다. 감사합니다!');
+                const userName = document.getElementById('input-name').value.trim();
 
-                // 장바구니 초기화
+                // ⭐ 로그인 상태에 따라 알림창 내용 변경 (주문번호 표시/미표시 분기)
+                if (isLoggedIn) {
+                    // 1. 로그인 상태인 경우: 주문번호 없이 일반적인 결제 완료 메시지 표시
+                    alert(`✅ ${userName}님, 결제가 성공적으로 완료되었습니다. 감사합니다!`);
+                } else {
+                    // 2. 비회원(로그아웃) 상태인 경우: 랜덤 주문번호를 생성하여 팝업창에 표시
+                    const orderId = generateOrderId();
+                    alert(`🎉 ${userName}님, 결제가 성공적으로 완료되었습니다!\n\n[주문 번호]: ${orderId}\n\n배송 정보가 정상적으로 접수되었습니다. 감사합니다!`);
+                }
+
+                // 장바구니 초기화 (공통)
                 cart = [];
                 updateLocalStorage();
                 updateCartDisplay();

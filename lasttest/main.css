@@ -1,0 +1,612 @@
+/* main.css */
+
+/* ===========================================
+ * 🎯 1. 기본 설정 및 폰트
+ * =========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family:'GMarketSans', sans-serif; 
+    margin: 0;
+    /* 데스크톱 기준 기본값 */
+    padding-top: 60px; 
+    background-color: #ffffff;
+    color: #333;
+    line-height: 1.6;
+    transition: padding-top 0.3s ease-in-out; 
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    transition: background-color 0.2s, opacity 0.2s;
+}
+
+/* GmarketSans 폰트 임베딩 */
+@font-face {
+    font-family: 'GMarketSans';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansLight.woff') format('woff');
+    font-weight: 300;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'GMarketSans';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: 500;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'GMarketSans';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');
+    font-weight: 700;
+    font-display: swap;
+}
+
+/* ===========================================
+ * 🎯 2. 고정 헤더 및 스크롤 애니메이션
+ * =========================================== */
+#main-header {
+    background-color: transparent;
+    box-shadow: none;
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+/* 스크롤 시 헤더 배경색 및 그림자 추가 */
+.scrolled {
+    background-color: white !important;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.08) !important;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    flex-direction: row; 
+    /* 중앙 정렬 */
+    justify-content: center; 
+    align-items: center;
+    padding: 10px 20px;
+    flex-wrap: nowrap;
+    position: relative; /* .header-actions의 absolute 기준점 */
+}
+
+/* 로고 스타일 및 클릭 커서 */
+#main-header h1 {
+    font-size: 2.5em;
+    color: #000000;
+    margin: 0 40px 0 0; 
+    cursor: pointer; 
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+/* 내비게이션 링크 컨테이너 */
+nav {
+    display: flex;
+    padding: 5px 0;
+    flex-grow: 0; 
+    justify-content: center;
+    overflow-x: hidden; 
+}
+nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+.nav-link {
+    text-decoration: none;
+    color: #555;
+    padding: 8px 15px;
+    margin-left: 5px;
+    font-weight: 500;
+    transition: color 0.2s;
+    white-space: nowrap; 
+}
+.nav-link.active, .nav-link:hover {
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+}
+
+/* 버튼 그룹: 로그인/장바구니 (Absolute Position으로 강제 우측 배치) */
+.header-actions {
+    display: flex;
+    position: absolute;
+    right: 20px;
+    top: 50%; 
+    transform: translateY(-50%); 
+    flex-shrink: 0; 
+    z-index: 10;
+}
+
+/* 로그인 버튼 (왼쪽 버튼) */
+#login-button {
+    background-color: #f0f0f0;
+    color: #333;
+    border: 1px solid #ddd;
+    border-radius: 5px 0 0 5px; 
+    padding: 8px 15px;
+    font-size: 0.9em;
+    font-weight: 600;
+    cursor: pointer;
+    margin-right: -1px; 
+    transition: background-color 0.2s;
+}
+#login-button:hover {
+    background-color: #e0e0e0;
+}
+
+/* 로그인 후 (로그아웃 버튼) 스타일 */
+#login-button.logged-in {
+    background-color: #e6e6e6; 
+    color: #000;
+    border: 1px solid #ccc;
+    font-weight: 500;
+}
+#login-button.logged-in:hover {
+    background-color: #ddd;
+}
+
+/* 장바구니 버튼 (오른쪽 버튼) */
+#cart-button {
+    background: none;
+    border: 1px solid #ddd; 
+    border-left: none; 
+    border-radius: 0 5px 5px 0; 
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #555;
+    cursor: pointer;
+    padding: 5px 10px; 
+    line-height: 1.6;
+    transition: color 0.2s;
+    position: relative; 
+}
+#cart-button:hover {
+    color: #007bff;
+}
+#cart-count {
+    color: #007bff;
+    font-weight: 700;
+    margin-left: 3px;
+}
+
+/* ===========================================
+ * 🎯 3. 메인 비주얼 (Hero Section) 스타일
+ * =========================================== */
+#hero-section {
+    height: 500px; 
+    background-color: #f7f7f7; 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 50px 0;
+}
+.hero-text-box h2 {
+    font-size: 3em;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 10px;
+}
+.hero-text-box p {
+    font-size: 1.1em;
+    color: #666;
+    margin-bottom: 30px;
+}
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+.main-action-btn, .sub-action-btn {
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.2s, color 0.2s;
+}
+.main-action-btn {
+    background-color: #007bff; 
+    color: white;
+    border: 2px solid #007bff;
+}
+.sub-action-btn { 
+    background-color: white;
+    color: #007bff;
+    border: 2px solid #007bff;
+}
+.main-action-btn:hover { background-color: #0056b3; }
+.sub-action-btn:hover { background-color: #f0f8ff; }
+
+
+/* ===========================================
+ * 🎯 4. 상품 목록 컨테이너 및 제목 스타일
+ * =========================================== */
+#product-list-container {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+.section-title {
+    font-size: 2em;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 30px;
+}
+
+/* ===========================================
+ * 🎯 5. 상품 목록 그리드 및 카드 스타일
+ * =========================================== */
+#product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    gap: 20px;
+}
+.product-card {
+    background-color: white;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s, transform 0.3s;
+    text-align: left;
+    cursor: pointer;
+}
+.product-card:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+}
+.product-card img {
+    width: 100%;
+    height: 300px; 
+    object-fit: cover;
+}
+.card-info {
+    padding: 15px;
+}
+.card-info .name {
+    font-size: 1em;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 5px;
+}
+.card-info .price {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #007bff; 
+}
+.product-card .add-to-cart-btn {
+    width: 90%;
+    padding: 10px;
+    margin: 0 5% 15px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+.product-card .add-to-cart-btn:hover {
+    background-color: #007bff;
+}
+
+/* ===========================================
+ * 🎯 7. 모달 공통 스타일 및 개별 스타일
+ * =========================================== */
+.modal {
+    display: none; 
+    position: fixed;
+    z-index: 2000; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); 
+}
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto; 
+    padding: 30px;
+    border: 1px solid #888;
+    width: 90%; 
+    max-width: 450px; 
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+}
+.close-btn:hover {
+    color: #333;
+}
+.modal-content h2 {
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 600;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+/* --- 폼 인풋 공통 스타일 (로그인/회원가입/배송정보) --- */
+#login-form input, 
+#signup-form input, 
+#delivery-form input { 
+    width: 100%; 
+    padding: 12px; 
+    margin: 10px 0; 
+    display: inline-block; 
+    border: 1px solid #ccc; 
+    box-sizing: border-box; 
+    border-radius: 4px; 
+    font-size: 1em;
+}
+
+/* --- 모달 버튼 공통 스타일 --- */
+.modal-action-btn { 
+    background-color: #007bff; 
+    color: white; 
+    padding: 14px 20px; 
+    margin: 8px 0; 
+    border: none; 
+    cursor: pointer; 
+    width: 100%; 
+    border-radius: 4px; 
+    font-size: 1.1em; 
+    font-weight: 600;
+}
+.modal-action-btn:hover { background-color: #0056b3; }
+.switch-link { color: #007bff; text-decoration: none; font-size: 0.9em; font-weight: 500;}
+.switch-link:hover { text-decoration: underline; }
+
+/* ⭐ 비회원 결제하기 버튼 디자인 (.modal-action-btn.secondary) ⭐ */
+.modal-action-btn.secondary {
+    background-color: #f0f0f0; 
+    color: #333; 
+    border: 1px solid #ddd;
+}
+.modal-action-btn.secondary:hover {
+    background-color: #e0e0e0;
+}
+
+
+/* ⭐ 최종 결제하기 버튼 디자인 (.large-btn.primary-btn) ⭐ */
+/* .modal-action-btn과 동일한 크기와 Primary 색상 (파란색) 디자인을 적용 */
+.large-btn.primary-btn { 
+    width: 100%;
+    padding: 14px 20px; 
+    margin: 8px 0;
+    border: none; 
+    border-radius: 4px; 
+    font-size: 1.1em; 
+    font-weight: 600;
+    box-sizing: border-box; 
+    
+    background-color: #007bff; 
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.large-btn.primary-btn:hover {
+    background-color: #0056b3;
+}
+
+
+/* --- 장바구니 모달 스타일 --- */
+#cart-modal .modal-content { max-width: 500px; }
+#cart-items { max-height: 300px; overflow-y: auto; margin-bottom: 20px; padding-right: 10px; }
+.cart-item { 
+    padding: 10px 0; 
+    border-bottom: 1px dashed #eee; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: flex-start;
+}
+.cart-item-details, .cart-item-price-actions {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.cart-item-options {
+    font-size: 0.85em;
+    color: #888;
+    margin-top: 2px;
+}
+.cart-item-price-actions {
+    margin-top: 5px;
+    font-size: 0.9em;
+}
+.cart-item-price-actions p {
+    margin: 0;
+}
+.cart-item .remove-btn { 
+    background-color: #e74c3c; 
+    color: white; 
+    border: none; 
+    padding: 5px 10px; 
+    cursor: pointer; 
+    border-radius: 3px; 
+    font-size: 0.8em;
+}
+.cart-summary { text-align: right; padding-top: 15px; border-top: 2px solid #333; font-size: 1.2em; font-weight: bold; }
+
+/* 기존 #checkout-btn 스타일 유지 (새로 정의된 .large-btn.primary-btn과 동일함) */
+#checkout-btn { 
+    width: 100%; 
+    padding: 14px 20px; 
+    background-color: #007bff; 
+    color: white; 
+    border: none; 
+    border-radius: 4px; 
+    margin-top: 15px; 
+    font-size: 1.1em; 
+    font-weight: 600; 
+    cursor: pointer; 
+    transition: background-color 0.2s;
+}
+#checkout-btn:hover { background-color: #0056b3; }
+
+/* --- 쿠폰 모달 스타일 --- */
+#coupon-list { display: flex; flex-direction: column; gap: 15px; padding-top: 5px; }
+.coupon-item { padding: 15px; border: 1px solid #ddd; border-left: 5px solid #007bff; border-radius: 5px; background-color: #f9f9f9; }
+.coupon-item h4 { margin: 0 0 5px 0; color: #333; font-weight: 600; }
+.coupon-item p { margin: 0; font-size: 0.9em; color: #666; }
+
+/* --- 상품 상세 모달 스타일 --- */
+#product-detail-modal .modal-content { max-width: 800px; padding: 20px; }
+.detail-container { display: flex; gap: 30px; padding: 20px 0; }
+.detail-image { flex: 1; min-width: 300px; }
+.detail-image img { width: 100%; height: auto; border-radius: 5px; object-fit: cover; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); }
+.detail-text-info { flex: 1.5; text-align: left; }
+.detail-text-info h3 { font-size: 1.8em; font-weight: 700; margin-top: 0; margin-bottom: 10px; }
+.detail-price { font-size: 1.5em; font-weight: bold; color: #e74c3c; border-bottom: 1px solid #eee; padding-bottom: 15px; margin-bottom: 20px; }
+
+/* 옵션 선택 필드 스타일 */
+.option-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+.option-group label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #555;
+}
+.option-group select,
+.option-group input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+    /* 드롭다운 화살표 커스터마이징 */
+    appearance: none; 
+    background: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http://www.w3.org/2000/svg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000%22%20d%3D%22M287%20173.5c-3.7%203.7-7.7%205.5-12.2%205.5s-8.5-1.8-12.2-5.5l-123%20123.1c-3.7%203.7-7.7%205.5-12.2%205.5s-8.5-1.8-12.2-5.5L5.4%20173.5c-3.7-3.7-5.5-7.7-5.5-12.2s1.8-8.5%205.5-12.2l134-134c3.7-3.7%207.7-5.5%2012.2-5.5s8.5%201.8%2012.2%205.5l134%20134c3.7%203.7%205.5%207.7%205.5%2012.2s-1.8%208.5-5.5%2012.2z%22%2F%3E%3C%2Fsvg%3E') no-repeat right 10px center / 10px 10px;
+}
+.option-group input[type="number"] {
+    width: 80px; 
+    padding: 8px;
+    text-align: center;
+    background: none; 
+    appearance: auto;
+}
+
+.detail-description-box, .detail-spec-box { margin-bottom: 20px; }
+.detail-description-box h4, .detail-spec-box h4 { font-size: 1.1em; font-weight: 600; color: #333; margin: 0 0 8px 0; }
+.detail-description-box p, .detail-spec-box p { font-size: 0.95em; color: #555; line-height: 1.5; white-space: pre-wrap; }
+.detail-text-info .add-to-cart-btn.large-btn { width: 100%; padding: 15px; background-color: #007bff; color: white; border: none; border-radius: 5px; font-size: 1.1em; font-weight: bold; cursor: pointer; margin-top: 15px; }
+.detail-text-info .add-to-cart-btn.large-btn:hover { background-color: #0056b3; }
+
+/* ===========================================
+ * 🎯 8. 반응형 조정 (768px 이하 모바일 화면)
+ * =========================================== */
+@media (max-width: 768px) {
+    /* 모바일 환경에 맞게 padding-top 조정 */
+    body { padding-top: 65px; } 
+
+    #main-header { padding: 0; } 
+
+    .header-container { 
+        flex-direction: row; 
+        justify-content: space-between; 
+        align-items: center; 
+        padding: 5px 15px; 
+        flex-wrap: nowrap;
+    }
+    
+    #main-header h1 { 
+        font-size: 1.5em; 
+        margin: 0 10px 0 0; 
+    }
+    
+    /* 카테고리 메뉴 (nav) - 가로 스크롤 적용 */
+    nav { 
+        flex-grow: 1; 
+        justify-content: flex-start; 
+        padding: 0;
+        margin: 0 10px; 
+        max-width: 60%; 
+        overflow-x: auto; 
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch; 
+    }
+    /* 스크롤바 숨기기 */
+    nav::-webkit-scrollbar { display: none; }
+    nav { -ms-overflow-style: none; scrollbar-width: none; }
+    
+    .nav-link {
+        padding: 5px 8px; 
+        font-size: 0.85em; 
+        margin-left: 0;
+    }
+
+    /* 버튼 그룹: 모바일에서는 다시 static으로 바꿔서 컨테이너 흐름에 포함 */
+    .header-actions { 
+        position: static; 
+        top: auto; 
+        right: auto;
+        transform: none; /* absolute 설정 해제 */
+    }
+    #login-button { padding: 4px 8px; font-size: 0.7em; }
+    #cart-button { padding: 1px 6px; font-size: 0.9em; }
+
+    /* --- 콘텐츠 영역 --- */
+    
+    /* 히어로 섹션 */
+    #hero-section { height: 300px; padding: 20px 0; }
+    .hero-text-box h2 { font-size: 1.8em; }
+    .hero-text-box p { font-size: 1em; }
+    
+    /* 상품 목록 */
+    .grid-container {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 15px;
+    }
+    .product-card img { height: 200px; }
+    
+    /* 상품 상세 모달 */
+    #product-detail-modal .modal-content { max-width: 95%; margin: 5% auto; padding: 15px; }
+    .detail-container { flex-direction: column; gap: 15px; }
+    .detail-image { min-width: 100%; max-width: 100%; }
+    .detail-text-info { padding-top: 10px; }
+    .detail-text-info h3 { font-size: 1.5em; }
+    .detail-price { font-size: 1.3em; }
+}
+
+/* ===========================================
+ * 6. 푸터 스타일
+ * =========================================== */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
